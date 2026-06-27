@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}403 — Forbidden — NexForge Automation{% endblock %}
+{% block content %}
+<section class="container py-5 text-center" style="min-height:60vh">
+  <div class="display-1 text-muted">403</div>
+  <h1 class="mb-3">Forbidden</h1>
+  <p class="lead text-muted">You do not have permission to access this resource.</p>
+  <a href="{% url 'home' %}" class="btn btn-brand mt-3">Return Home</a>
+</section>
+{% endblock %}

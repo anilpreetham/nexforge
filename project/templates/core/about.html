@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About — NexForge Automation{% endblock %}
+{% block content %}
+
+<!-- Hero -->
+<section class="bg-blue text-white py-5">
+  <div class="container text-center py-3">
+    <h1 class="fw-bold">About NexForge Automation</h1>
+    <p class="lead text-white-50">Transforming Manufacturing Through Innovation</p>
+  </div>
+</section>
+
+<!-- Overview -->
+<section class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h2 class="fw-bold mb-4">Who We Are</h2>
+      <p class="lead">NexForge Industrial Automation Pvt. Ltd. is a leading provider of industrial automation, robotics integration, Industrial IoT, machine vision, and smart manufacturing solutions. The company helps manufacturing industries increase productivity through intelligent automation technologies.</p>
+      <p>Founded with the vision of revolutionizing manufacturing, NexForge has delivered hundreds of projects across India and the Middle East. The company partners with global technology leaders to provide world-class solutions while adhering to international standards and safety regulations.</p>
+      <p>With a multidisciplinary team of <strong>145+ professionals</strong>, NexForge transforms traditional factories into intelligent ecosystems with real-time monitoring and autonomous decision-making.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="bg-blue-dark text-white py-4">
+  <div class="container">
+    <div class="row g-4 text-center">
+      {% for key, val in stats.items %}
+      <div class="col-4 col-md-2">
+        <div class="stat-counter">{{ val }}</div>
+        <div class="stat-label">{{ key|title }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Employee Roles -->
+<section class="bg-gray py-5">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-5">Our Team</h2>
+    <p class="text-center text-muted mb-4">A multidisciplinary team of 145+ professionals driving industrial innovation</p>
+    <div class="row g-3 text-center">
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100">
+          <div class="h5 fw-bold text-orange mb-1">45+</div>
+          <small class="text-muted">Automation Engineers</small>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100">
+          <div class="h5 fw-bold text-orange mb-1">30+</div>
+          <small class="text-muted">PLC Programmers</small>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100">
+          <div class="h5 fw-bold text-orange mb-1">25+</div>
+          <small class="text-muted">SCADA Developers</small>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100">
+          <div class="h5 fw-bold text-orange mb-1">20+</div>
+          <small class="text-muted">IIoT Specialists</small>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100">
+          <div class="h5 fw-bold text-orange mb-1">15+</div>
+          <small class="text-muted">Machine Vision Engineers</small>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100">
+          <div class="h5 fw-bold text-orange mb-1">20+</div>
+          <small class="text-muted">Robotics Engineers</small>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100">
+          <div class="h5 fw-bold text-orange mb-1">15+</div>
+          <small class="text-muted">Electrical Designers</small>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100">
+          <div class="h5 fw-bold text-orange mb-1">10+</div>
+          <small class="text-muted">Project Managers</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Vision & Mission -->
+<section class="container py-5">
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card border-0 bg-gray h-100 p-4">
+        <h2 class="h4 text-blue fw-bold mb-3">Our Vision</h2>
+        <p class="mb-0">To become Asia's most trusted industrial automation partner by delivering intelligent engineering solutions that redefine manufacturing efficiency, digital transformation, and sustainable industrial growth.</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card border-0 bg-gray h-100 p-4">
+        <h2 class="h4 text-orange fw-bold mb-3">Our Mission</h2>
+        <p class="mb-0">To empower industries with intelligent automation technologies that improve productivity, minimize operational costs, optimize manufacturing performance, and create safer, smarter production environments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core Values -->
+<section class="bg-gray py-5">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-5">Our Core Values</h2>
+    <div class="row g-3">
+      {% for val in values %}
+      <div class="col-6 col-md-3">
+        <div class="card border-0 text-center p-3 h-100 industry-card">
+          <div class="card-body p-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" class="mb-2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <h6 class="mb-0 small">{{ val }}</h6>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose NexForge -->
+<section class="container py-5">
+  <h2 class="fw-bold text-center mb-5">Why Choose NexForge</h2>
+  <div class="row g-3">
+    {% for item in why_choose %}
+    <div class="col-md-4">
+      <div class="d-flex align-items-start gap-2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" class="flex-shrink-0 mt-1">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <span>{{ item }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% if awards %}
+<!-- Awards -->
+<section class="bg-gray py-5">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-5">Recognitions &amp; Achievements</h2>
+    <div class="row g-4">
+      {% for a in awards %}
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm text-center p-4 h-100">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" class="mx-auto mb-3">
+            <circle cx="24" cy="24" r="22" fill="var(--orange)" fill-opacity="0.1"/>
+            <path d="M16 28L24 8L32 28L24 32L16 28Z" fill="var(--orange)" fill-opacity="0.2" stroke="var(--orange)" stroke-width="1.5"/>
+          </svg>
+          <h3 class="h6">{{ a.title }}</h3>
+          <p class="text-muted small mb-0">{{ a.year }}</p>
+          {% if a.description %}<p class="small mt-2">{{ a.description }}</p>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

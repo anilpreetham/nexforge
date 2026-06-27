@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Projects — NexForge Automation{% endblock %}
+{% block content %}
+
+<section class="bg-blue text-white py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold">Our Projects</h1>
+    <p class="lead text-white-50">Engineering success through intelligent automation</p>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="row">
+    <!-- Filter Sidebar -->
+    <div class="col-lg-3 mb-4">
+      <div class="card border-0 bg-gray p-3">
+        <h2 class="h6 fw-bold mb-3">Filters</h2>
+
+        <div class="mb-3">
+          <label class="form-label small fw-semibold">Search</label>
+          <input id="search" type="search" class="form-control form-control-sm" placeholder="Search projects…">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-semibold">Status</label>
+          <select id="status" class="form-select form-select-sm">
+            <option value="">All Projects</option>
+            <option value="ongoing">Ongoing</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-semibold">Industry</label>
+          <select id="industry" class="form-select form-select-sm">
+            <option value="">All Industries</option>
+            {% for ind in industries %}
+            <option value="{{ ind.slug }}">{{ ind.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-semibold">Technology</label>
+          <select id="technology" class="form-select form-select-sm">
+            <option value="">All Technologies</option>
+            {% for t in technologies %}
+            <option value="{{ t.name }}">{{ t.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button id="clear-filters" class="btn btn-outline-secondary btn-sm w-100">Clear</button>
+          <button id="toggle-view" class="btn btn-outline-secondary btn-sm" title="Toggle grid/list view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid Area -->
+    <div class="col-lg-9">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span id="result-count" class="text-muted small">Loading...</span>
+      </div>
+      <div id="grid" class="masonry-grid grid-view"></div>
+      <p id="empty" class="text-muted d-none text-center py-5">No projects match your filters.</p>
+      <div id="loading" class="text-center py-5">
+        <div class="spinner-border text-orange" role="status"><span class="visually-hidden">Loading...</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- Floating Contact -->
+<a href="{% url 'contact' %}" class="floating-contact" aria-label="Get a Quote">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+  </svg>
+</a>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/projects.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,50 @@
+<footer class="bg-blue text-white pt-5 pb-4 mt-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <h5 class="fw-bold mb-3">Nex<span style="color:var(--orange)">Forge</span> Automation</h5>
+        <p class="text-white-50 small">Engineering Smarter Industries. Industrial automation, IIoT, robotics, and smart manufacturing solutions for Industry 4.0.</p>
+        <p class="small mb-1"><strong>Headquarters:</strong> Hyderabad, Telangana, India</p>
+        <p class="small mb-1"><strong>Phone:</strong> +91 12345 67890</p>
+        <p class="small"><strong>Email:</strong> <a href="mailto:info@nexforgeautomation.com" class="text-white-50">info@nexforgeautomation.com</a></p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="fw-bold mb-3">Quick Links</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="{% url 'home' %}">Home</a></li>
+          <li class="mb-2"><a href="{% url 'about' %}">About</a></li>
+          <li class="mb-2"><a href="{% url 'projects-portfolio' %}">Projects</a></li>
+          <li class="mb-2"><a href="{% url 'services-list' %}">Services</a></li>
+          <li class="mb-2"><a href="{% url 'blog-list' %}">Blog</a></li>
+          <li class="mb-2"><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="fw-bold mb-3">Resources</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="{% url 'faq' %}">FAQ</a></li>
+          <li class="mb-2"><a href="{% url 'gallery' %}">Gallery</a></li>
+          <li class="mb-2"><a href="{% url 'downloads' %}">Downloads</a></li>
+          <li class="mb-2"><a href="{% url 'awards' %}">Awards</a></li>
+          <li class="mb-2"><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+          <li class="mb-2"><a href="{% url 'terms' %}">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="fw-bold mb-3">Our Services</h6>
+        <ul class="list-unstyled small">
+          <li class="mb-2"><a href="{% url 'service-detail' 'plc-programming-industrial-control-systems' %}">PLC Programming</a></li>
+          <li class="mb-2"><a href="{% url 'service-detail' 'scada-development' %}">SCADA Development</a></li>
+          <li class="mb-2"><a href="{% url 'service-detail' 'industrial-iot-solutions' %}">Industrial IoT</a></li>
+          <li class="mb-2"><a href="{% url 'service-detail' 'robotics-integration' %}">Robotics Integration</a></li>
+          <li class="mb-2"><a href="{% url 'service-detail' 'machine-vision-inspection' %}">Machine Vision</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="border-white-50 my-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <span class="small text-white-50">&copy; {% now "Y" %} NexForge Industrial Automation Pvt. Ltd. All rights reserved.</span>
+      <span class="small text-white-50">Industrial automation &middot; IIoT &middot; Robotics &middot; AI Analytics</span>
+    </div>
+  </div>
+</footer>

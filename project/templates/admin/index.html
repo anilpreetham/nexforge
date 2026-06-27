@@ -1,0 +1,54 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div id="content-main">
+  {% if project_count is not None %}
+  <div class="module" style="margin-bottom:20px">
+    <h2>{% translate 'Analytics Dashboard' %}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;padding:16px 0">
+      <div style="background:#f8f9fa;border-radius:8px;padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:700;color:#0d6efd">{{ project_count }}</div>
+        <div style="font-size:13px;color:#6c757d">Projects</div>
+        <div style="margin-top:6px;font-size:11px">
+          <span style="color:#198754">{{ completed_count }} completed</span> ·
+          <span style="color:#ffc107">{{ ongoing_count }} ongoing</span>
+        </div>
+      </div>
+      <div style="background:#f8f9fa;border-radius:8px;padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:700;color:#fd7e14">{{ enquiry_count }}</div>
+        <div style="font-size:13px;color:#6c757d">Enquiries</div>
+        <div style="margin-top:6px;font-size:11px;color:#6c757d">{{ recent_enquiry_count }} this month</div>
+      </div>
+      <div style="background:#f8f9fa;border-radius:8px;padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:700;color:#198754">{{ blog_count }}</div>
+        <div style="font-size:13px;color:#6c757d">Blog Posts</div>
+      </div>
+      <div style="background:#f8f9fa;border-radius:8px;padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:700;color:#0dcaf0">{{ service_count }}</div>
+        <div style="font-size:13px;color:#6c757d">Active Services</div>
+      </div>
+    </div>
+
+    {% if recent_enquiries %}
+    <h3 style="font-size:14px;margin:16px 0 8px">{% translate 'Recent Enquiries' %}</h3>
+    <table style="width:100%">
+      <thead><tr><th>Name</th><th>Email</th><th>Status</th><th>Date</th></tr></thead>
+      <tbody>
+        {% for e in recent_enquiries %}
+        <tr>
+          <td><a href="{% url 'admin:contact_enquiry_change' e.pk %}">{{ e.name }}</a></td>
+          <td>{{ e.email }}</td>
+          <td>{{ e.get_status_display }}</td>
+          <td>{{ e.created_at|date:"M j, Y" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {{ block.super }}
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+# Core
+Django==6.0.6
+djangorestframework==3.17.1
+
+# Database
+psycopg==3.3.4
+psycopg-binary==3.3.4
+dj-database-url==3.1.2
+
+# Settings & Config
+django-environ==0.11.2
+
+# API & Filtering
+django-filter==25.2
+drf-spectacular==0.27.2
+
+# Frontend / Static
+whitenoise==6.12.0
+pillow==12.2.0
+
+# Security
+django-cors-headers==4.9.0
+django-csp==4.0
+
+# Caching / Performance
+gunicorn==26.0.0
+
+# Testing
+pytest==9.1.1
+pytest-django==4.12.0
+factory_boy==3.3.3
+Faker==40.23.0
+
+# Development
+django-debug-toolbar==4.4.6
+
+# Monitoring
+sentry-sdk==2.18.0
+
+# Logging
+python-json-logger==2.0.7
+
+# Utilities
+tzdata==2026.2

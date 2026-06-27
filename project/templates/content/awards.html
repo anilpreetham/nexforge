@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Awards — NexForge Automation{% endblock %}
+{% block content %}
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">Recognitions &amp; Achievements</h1>
+    <p class="text-muted">Celebrating our journey and milestones in industrial automation.</p>
+  </div>
+
+  {% if awards %}
+  <div class="row g-4 justify-content-center">
+    {% for a in awards %}
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm text-center p-4 h-100 industry-card">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" class="mx-auto mb-3">
+          <circle cx="28" cy="28" r="26" fill="var(--orange)" fill-opacity="0.1"/>
+          <path d="M20 32L28 12L36 32L28 36L20 32Z" fill="var(--orange)" fill-opacity="0.2" stroke="var(--orange)" stroke-width="1.5"/>
+        </svg>
+        <h2 class="h5 fw-bold">{{ a.title }}</h2>
+        <p class="text-orange fw-semibold">{{ a.year }}</p>
+        {% if a.description %}<p class="text-muted small">{{ a.description }}</p>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-muted text-center py-5">No awards listed yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

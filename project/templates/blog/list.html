@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Blog — NexForge Automation{% endblock %}
+{% block content %}
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">Insights &amp; Innovations</h1>
+    <p class="text-muted">Stay updated with the latest trends in industrial automation and Industry 4.0</p>
+  </div>
+
+  {% if featured_post %}
+  <div class="card border-0 bg-gray shadow-sm mb-5">
+    <div class="card-body p-4">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <span class="badge bg-orange mb-2">Featured</span>
+          <h2 class="h4 fw-bold">{{ featured_post.title }}</h2>
+          <p class="text-muted">{{ featured_post.summary }}</p>
+          <p class="small text-muted">
+            {% if featured_post.author %}By {{ featured_post.author.get_full_name|default:featured_post.author.username }} · {% endif %}
+            {{ featured_post.published_at|date:"F j, Y" }}
+            {% if featured_post.category %} · {{ featured_post.category }}{% endif %}
+          </p>
+          <a href="{% url 'blog-detail' featured_post.slug %}" class="btn btn-outline-brand btn-sm">Read More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row g-4">
+    {% for post in page_obj %}
+    <div class="col-md-4">
+      <a href="{% url 'blog-detail' post.slug %}" class="text-decoration-none">
+        <div class="card h-100 shadow-sm project-card">
+          {% if post.featured_image %}
+          <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}" loading="lazy" style="height:200px;object-fit:cover">
+          {% endif %}
+          <div class="card-body">
+            {% if post.category %}<span class="badge bg-blue mb-2">{{ post.category.name }}</span>{% endif %}
+            <h3 class="h6 text-dark">{{ post.title }}</h3>
+            <p class="text-muted small">{{ post.summary|truncatewords:20 }}</p>
+            <small class="text-muted">{{ post.published_at|date:"F j, Y" }}</small>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+      <p class="text-muted">No blog posts published yet.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="mt-4">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+      <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</section>
+{% endblock %}

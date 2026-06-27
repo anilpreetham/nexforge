@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Gallery — NexForge Automation{% endblock %}
+{% block content %}
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">Explore Our Projects</h1>
+    <p class="text-muted">A visual journey through our projects, from concept to execution.</p>
+  </div>
+
+  {% for category, items in items_by_cat.items %}
+  <h2 class="h4 fw-bold mb-3 mt-5">{{ category|title }}</h2>
+  <div class="masonry-grid">
+    {% for item in items %}
+    <div class="masonry-item">
+      <a href="#" class="gallery-trigger" data-src="{{ item.image.url }}">
+        <img src="{{ item.image.url }}" class="img-fluid rounded" alt="{{ item.title }}" loading="lazy" style="cursor:pointer">
+      </a>
+      {% if item.title %}<small class="text-muted mt-1 d-block">{{ item.title }}</small>{% endif %}
+    </div>
+    {% empty %}
+    <p class="text-muted">No items in this category.</p>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  {% if not items_by_cat %}
+  <p class="text-muted text-center py-5">No gallery items available yet.</p>
+  {% endif %}
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script nonce="{{ request.csp_nonce }}">
+document.addEventListener('DOMContentLoaded', function() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+  document.querySelectorAll('.gallery-trigger').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      lightboxImg.src = this.dataset.src;
+      lightbox.classList.add('active');
+    });
+  });
+  lightboxClose.addEventListener('click', function() { lightbox.classList.remove('active'); });
+  lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.classList.remove('active'); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') lightbox.classList.remove('active'); });
+});
+</script>
+{% endblock %}

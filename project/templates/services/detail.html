@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}{{ service.title }} — NexForge Automation{% endblock %}
+{% block meta %}{{ service.short_description|striptags|truncatewords:25 }}{% endblock %}
+{% block content %}
+<section class="container py-5">
+  <a href="{% url 'services-list' %}" class="text-decoration-none">&larr; All services</a>
+  <h1 class="fw-bold mt-3">{{ service.title }}</h1>
+  <p class="lead text-muted">{{ service.short_description }}</p>
+
+  {% if service.detailed_description %}
+  <div class="row">
+    <div class="col-lg-8">
+      <h2 class="h4 mt-4">Overview</h2>
+      <p>{{ service.detailed_description|linebreaks }}</p>
+    </div>
+    <div class="col-lg-4">
+      {% if service.industries.all %}
+      <div class="card border-0 bg-gray p-3 mb-3">
+        <h3 class="h6 fw-bold">Industries Served</h3>
+        <div class="d-flex flex-wrap gap-1">
+          {% for ind in service.industries.all %}
+          <span class="badge bg-blue">{{ ind.name }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if service.benefits.all %}
+  <h2 class="h4 mt-4">Business Benefits</h2>
+  <div class="row g-2 mb-4">
+    {% for b in service.benefits.all %}
+    <div class="col-md-4">
+      <div class="d-flex align-items-start gap-2 p-2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" class="flex-shrink-0 mt-1">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        <span class="small">{{ b.text }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if service.technologies.all %}
+  <h2 class="h4 mt-4">Technologies Used</h2>
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    {% for t in service.technologies.all %}
+    <span class="badge bg-light text-dark border px-3 py-2">{{ t.name }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if service.deliverables.all %}
+  <h2 class="h4 mt-4">Deliverables</h2>
+  <div class="row g-2 mb-4">
+    {% for d in service.deliverables.all %}
+    <div class="col-md-4">
+      <div class="d-flex align-items-start gap-2 p-2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" class="flex-shrink-0 mt-1">
+          <polyline points="9 11 12 14 22 4"/>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        <span class="small">{{ d.title }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section text-white py-5 mt-4">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Interested in {{ service.title }}?</h2>
+    <p class="lead text-white-50 mb-4">Contact our engineering team for a detailed consultation.</p>
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+      {% for cta_text, cta_url_name, cta_class in service_ctas %}
+      <a href="{% url cta_url_name %}" class="btn {{ cta_class }}">{{ cta_text }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

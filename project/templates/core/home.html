@@ -1,0 +1,407 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Hero Banner -->
+<section class="hero-section text-white py-5">
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <span class="hero-badge mb-3 d-inline-block">Industry 4.0 Solutions</span>
+        <h1 class="display-4 fw-bold mb-3">Building Intelligent Factories for the Future</h1>
+        <p class="lead text-white-50 mb-4" style="max-width:600px">
+          Transform your manufacturing operations through Industrial IoT, Robotics, PLC Programming,
+          AI Analytics, and Smart Factory Solutions designed for Industry 4.0.
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="{% url 'contact' %}" class="btn btn-brand btn-lg">Request Consultation</a>
+          <a href="{% url 'services-list' %}" class="btn btn-outline-light btn-lg">Explore Services</a>
+          <a href="{% url 'downloads' %}" class="btn btn-cyan btn-lg">Download Company Profile</a>
+          <a href="{% url 'contact' %}" class="btn btn-outline-cyan btn-lg">Book Factory Visit</a>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-block text-center">
+        <svg width="320" height="320" viewBox="0 0 320 320" fill="none">
+          <circle cx="160" cy="160" r="150" stroke="rgba(245,124,0,0.2)" stroke-width="2" fill="none"/>
+          <circle cx="160" cy="160" r="100" stroke="rgba(0,188,212,0.2)" stroke-width="2" fill="none"/>
+          <path d="M160 60 L160 100 M160 220 L160 260 M60 160 L100 160 M220 160 L260 160" stroke="rgba(245,124,0,0.4)" stroke-width="3"/>
+          <circle cx="160" cy="160" r="40" fill="rgba(255,255,255,0.05)" stroke="rgba(0,188,212,0.3)" stroke-width="2"/>
+          <text x="160" y="165" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Poppins, sans-serif" font-size="12" font-weight="600">AI</text>
+          <rect x="50" y="50" width="20" height="20" rx="4" stroke="rgba(245,124,0,0.5)" stroke-width="1.5" fill="none"/>
+          <rect x="250" y="50" width="20" height="20" rx="4" stroke="rgba(0,188,212,0.5)" stroke-width="1.5" fill="none"/>
+          <rect x="50" y="250" width="20" height="20" rx="4" stroke="rgba(0,188,212,0.5)" stroke-width="1.5" fill="none"/>
+          <rect x="250" y="250" width="20" height="20" rx="4" stroke="rgba(245,124,0,0.5)" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Business Statistics -->
+<section class="bg-blue-dark text-white py-5">
+  <div class="container">
+    <div class="row g-4 text-center justify-content-center">
+      <div class="col-4 col-md">
+        <div class="stat-counter count-up" data-target="145">0</div>
+        <div class="stat-label">Professional Engineers</div>
+      </div>
+      <div class="col-4 col-md">
+        <div class="stat-counter count-up" data-target="650">0</div>
+        <div class="stat-label">Projects Delivered</div>
+      </div>
+      <div class="col-4 col-md">
+        <div class="stat-counter count-up" data-target="300">0</div>
+        <div class="stat-label">Manufacturing Clients</div>
+      </div>
+      <div class="col-4 col-md">
+        <div class="stat-counter count-up" data-target="42">0</div>
+        <div class="stat-label">Cities Served</div>
+      </div>
+      <div class="col-4 col-md">
+        <div class="stat-counter count-up" data-target="12">0</div>
+        <div class="stat-label">Industries Served</div>
+      </div>
+      <div class="col-4 col-md">
+        <div class="stat-counter count-up" data-target="98">0</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+    </div>
+    <div class="row g-4 text-center justify-content-center mt-2">
+      <div class="col-4 col-md">
+        <div class="stat-counter count-up" data-target="18">0</div>
+        <div class="stat-label">Efficiency Improvement</div>
+      </div>
+      <div class="col-4 col-md">
+        <div class="stat-counter count-up" data-target="35">0</div>
+        <div class="stat-label">Downtime Reduction</div>
+      </div>
+      <div class="col-4 col-md">
+        <div class="stat-counter count-up" data-target="99.5">0</div>
+        <div class="stat-label">Delivery Success Rate</div>
+      </div>
+      <div class="col-4 col-md">
+        <div class="stat-counter">24×7</div>
+        <div class="stat-label">Technical Support</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if featured %}
+<!-- Featured Projects -->
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">Featured Projects</h2>
+    <p class="text-muted">Engineering success through intelligent automation</p>
+  </div>
+  <div class="row g-4">
+    {% for p in featured %}
+    <div class="col-md-4">
+      <a href="{% url 'project-detail' p.slug %}" class="text-decoration-none">
+        <div class="card project-card h-100 shadow-sm">
+          {% if p.thumbnail %}
+          <img src="{{ p.thumbnail.url }}" class="card-img-top" alt="{{ p.title }}" loading="lazy">
+          {% else %}
+          <div class="card-img-top bg-blue d-flex align-items-center justify-content-center text-white">
+            <span class="h4">{{ p.title|first }}</span>
+          </div>
+          {% endif %}
+          <div class="card-body">
+            <h3 class="h5 text-dark">{{ p.title }}</h3>
+            <p class="text-muted small mb-0">
+              {% if p.client %}{{ p.client.name }} · {% endif %}
+              {{ p.industry }}{% if p.location %} · {{ p.location }}{% endif %}
+            </p>
+            <span class="badge bg-{% if p.status == 'ongoing' %}warning{% else %}success{% endif %} mt-2">
+              {{ p.get_status_display }}
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="text-center mt-4">
+    <a href="{% url 'projects-portfolio' %}" class="btn btn-outline-brand">View All Projects</a>
+  </div>
+</section>
+{% endif %}
+
+{% if services %}
+<!-- Services -->
+<section class="bg-gray py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Our Services</h2>
+      <p class="text-muted">Comprehensive industrial automation solutions</p>
+    </div>
+    <div class="row g-4">
+      {% for s in services %}
+      <div class="col-md-4 col-lg-3">
+        <a href="{% url 'service-detail' s.slug %}" class="text-decoration-none">
+          <div class="card h-100 border-0 shadow-sm text-center p-4 industry-card">
+            <div class="card-body">
+              <div class="mb-3">
+                {% if s.icon %}
+                <img src="{{ s.icon.url }}" alt="{{ s.title }}" height="48">
+                {% else %}
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <rect width="48" height="48" rx="8" fill="var(--orange)" fill-opacity="0.1"/>
+                  <text x="24" y="30" text-anchor="middle" fill="var(--orange)" font-family="Poppins" font-size="18" font-weight="600">{{ s.title|first }}</text>
+                </svg>
+                {% endif %}
+              </div>
+              <h3 class="h6 text-dark mb-2">{{ s.title }}</h3>
+              <p class="text-muted small mb-0">{{ s.short_description|truncatewords:12 }}</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'services-list' %}" class="btn btn-outline-brand">View All Services</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if industries %}
+<!-- Industries Served -->
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">Industries We Serve</h2>
+    <p class="text-muted">Delivering automation excellence across diverse sectors</p>
+  </div>
+  <div class="row g-3">
+    {% for ind in industries %}
+    <div class="col-6 col-md-3 col-lg-2">
+      <div class="card border-0 bg-gray text-center p-3 industry-card h-100">
+        <div class="card-body p-2">
+          <h4 class="h6 mb-0">{{ ind.name }}</h4>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- Technology Partners -->
+<section class="bg-gray py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Our Technology Partners</h2>
+      <p class="text-muted">Collaborating with global leaders to deliver world-class automation</p>
+    </div>
+    <div class="row g-3 text-center justify-content-center">
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100 d-flex align-items-center justify-content-center">
+          <strong class="text-blue">SIEMENS</strong>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100 d-flex align-items-center justify-content-center">
+          <strong class="text-dark">Rockwell</strong>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100 d-flex align-items-center justify-content-center">
+          <strong class="text-dark">Allen-Bradley</strong>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100 d-flex align-items-center justify-content-center">
+          <strong class="text-dark">Schneider</strong>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100 d-flex align-items-center justify-content-center">
+          <strong class="text-dark">MITSUBISHI</strong>
+        </div>
+      </div>
+      <div class="col-4 col-md-2">
+        <div class="card border-0 p-3 h-100 d-flex align-items-center justify-content-center">
+          <strong class="text-dark">Honeywell</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if client_logos %}
+<!-- Client Logos -->
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">Trusted by Industry Leaders</h2>
+    <p class="text-muted">300+ manufacturing clients across India and the Middle East</p>
+  </div>
+  <div class="row g-3 align-items-center justify-content-center">
+    {% for c in client_logos %}
+    <div class="col-4 col-md-2 text-center">
+      {% if c.logo %}
+      <img src="{{ c.logo.url }}" alt="{{ c.name }}" class="img-fluid" style="max-height:60px;filter:grayscale(1);opacity:0.6" loading="lazy">
+      {% else %}
+      <strong class="text-muted small">{{ c.name }}</strong>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- About Company -->
+<section class="container py-5">
+  <div class="row align-items-center">
+    <div class="col-lg-6">
+      <span class="hero-badge mb-3 d-inline-block">Automation Beyond Expectations</span>
+      <h2 class="fw-bold mb-3">Engineering Smarter Industries</h2>
+      <p class="lead">NexForge specializes in delivering end-to-end industrial automation solutions for industries such as automotive, pharmaceuticals, and food processing. With a multidisciplinary team, NexForge transforms traditional factories into intelligent ecosystems with real-time monitoring and autonomous decision-making.</p>
+      <p>Founded with the vision of revolutionizing manufacturing, NexForge has delivered hundreds of projects across India and the Middle East. The company partners with global technology leaders to provide world-class solutions while adhering to international standards and safety regulations.</p>
+      <a href="{% url 'about' %}" class="btn btn-outline-brand mt-2">Learn More About Us</a>
+    </div>
+    <div class="col-lg-6 mt-4 mt-lg-0">
+      <div class="row g-3">
+        <div class="col-6">
+          <div class="card border-0 bg-gray text-center p-4 h-100">
+            <div class="display-5 fw-bold text-blue">145+</div>
+            <small class="text-muted">Automation Professionals</small>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card border-0 bg-gray text-center p-4 h-100">
+            <div class="display-5 fw-bold text-orange">650+</div>
+            <small class="text-muted">Projects Delivered</small>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card border-0 bg-gray text-center p-4 h-100">
+            <div class="display-5 fw-bold text-cyan">300+</div>
+            <small class="text-muted">Manufacturing Clients</small>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card border-0 bg-gray text-center p-4 h-100">
+            <div class="display-5 fw-bold text-blue">98%</div>
+            <small class="text-muted">Customer Satisfaction</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Process -->
+<section class="bg-gray py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Our Process</h2>
+      <p class="text-muted">A systematic approach to industrial automation</p>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        {% for step in process_steps %}
+        <div class="process-step mb-4">
+          <div class="process-number">{{ step.number }}</div>
+          <div class="process-line"></div>
+          <h4 class="h5">{{ step.title }}</h4>
+          <p class="text-muted">{{ step.desc }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if testimonials %}
+<!-- Testimonials -->
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">What Our Clients Say</h2>
+    <p class="text-muted">Trusted by 300+ manufacturing companies</p>
+  </div>
+  <div class="row g-4">
+    {% for t in testimonials %}
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm h-100 p-4">
+        <svg class="mb-3" width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M10 8L4 16V24H12V16H6L10 10V8ZM22 8L16 16V24H24V16H18L22 10V8Z" fill="var(--orange)" fill-opacity="0.3"/>
+        </svg>
+        <p class="flex-grow-1">"{{ t.quote }}"</p>
+        <footer class="border-0 pt-2">
+          <strong class="d-block">{{ t.author_name }}</strong>
+          {% if t.designation %}<small class="text-muted">{{ t.designation }}</small>{% endif %}
+        </footer>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- CTA Banner -->
+<section class="cta-section text-white py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Ready to Transform Your Manufacturing Plant?</h2>
+    <p class="lead text-white-50 mb-4">Partner with NexForge to modernize your factory with intelligent automation, IIoT, robotics, AI analytics, and Industry 4.0 technologies.</p>
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+      <a href="{% url 'contact' %}" class="btn btn-brand btn-lg">Request Proposal</a>
+      <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">Book Site Visit</a>
+      <a href="{% url 'downloads' %}" class="btn btn-cyan btn-lg">Download Company Profile</a>
+      <a href="{% url 'contact' %}" class="btn btn-outline-cyan btn-lg">Talk to Automation Expert</a>
+    </div>
+  </div>
+</section>
+
+<!-- Floating Contact -->
+<a href="{% url 'contact' %}" class="floating-contact" aria-label="Get a Quote">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+  </svg>
+</a>
+
+{% endblock %}
+
+{% block scripts %}
+<script nonce="{{ request.csp_nonce }}">
+document.addEventListener('DOMContentLoaded', function() {
+  // Count-up animation for stat counters
+  const counters = document.querySelectorAll('.count-up');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseFloat(el.dataset.target);
+        const isFloat = target !== Math.floor(target);
+        let current = 0;
+        const steps = 60;
+        const increment = target / steps;
+        const timer = setInterval(function() {
+          current += increment;
+          if (current >= target) {
+            el.textContent = (isFloat ? target.toFixed(1) : Math.floor(target)) + '+';
+            clearInterval(timer);
+          } else {
+            el.textContent = isFloat ? current.toFixed(1) : Math.floor(current);
+          }
+        }, 25);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(function(c) { observer.observe(c); });
+
+  // Scroll-triggered animations
+  const animateEls = document.querySelectorAll('.animate-on-scroll');
+  const animObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        animObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  animateEls.forEach(function(el) { animObserver.observe(el); });
+});
+</script>
+{% endblock %}

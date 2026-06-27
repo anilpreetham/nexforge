@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Services — NexForge Automation{% endblock %}
+{% block content %}
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">Our Services</h1>
+    <p class="text-muted">Comprehensive industrial automation solutions for modern manufacturing</p>
+  </div>
+
+  <div class="row g-4">
+    {% for s in page_obj %}
+    <div class="col-md-6 col-lg-4">
+      <a href="{% url 'service-detail' s.slug %}" class="text-decoration-none">
+        <div class="card h-100 border-0 shadow-sm industry-card">
+          {% if s.icon %}
+          <img src="{{ s.icon.url }}" class="card-img-top p-4 pb-0" alt="{{ s.title }}" style="height:80px;width:auto;object-fit:contain">
+          {% endif %}
+          <div class="card-body">
+            <h2 class="h5 text-dark">{{ s.title }}</h2>
+            <p class="text-muted small mb-3">{{ s.short_description|truncatewords:20 }}</p>
+            <span class="btn btn-outline-brand btn-sm">Learn More</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+      <p class="text-muted">No services available yet.</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if page_obj.paginator.num_pages > 1 %}
+  <nav class="mt-4">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+      <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</section>
+{% endblock %}

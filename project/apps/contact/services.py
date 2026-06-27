@@ -1,0 +1,48 @@
+"""Services for contact app - business logic layer."""
+
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
+from apps.contact.models import Enquiry
+
+
+def create_enquiry(name, email, phone, message):
+    """Create an enquiry record."""
+    return Enquiry.objects.create(
+        name=name,
+        email=email,
+        phone=phone,
+        message=message,
+        status=Enquiry.Status.NEW,
+    )
+
+
+def send_enquiry_email(enquiry):
+    """Send HTML email notification for new enquiry."""
+    subject = f"New Enquiry: {enquiry.name}"
+    html_body = render_to_string("emails/enquiry_notification.html", {"enquiry": enquiry})
+    text_body = (
+        f"New enquiry received:\n\nName: {enquiry.name}\n"
+        f"Email: {enquiry.email}\nPhone: {enquiry.phone}\n"
+        f"Message:\n{enquiry.message}"
+    )
+    try:
+        send_mail(
+            subject,
+            text_body,
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.SALES_INBOX],
+            html_message=html_body,
+            fail_silently=True,
+        )
+        return True
+    except Exception:
+        return False
+
+
+def process_enquiry(name, email, phone, message):
+    """Create enquiry and send notification email."""
+    enquiry = create_enquiry(name, email, phone, message)
+    send_enquiry_email(enquiry)
+    return enquiry

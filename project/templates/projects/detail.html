@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ project.title }} — NexForge Automation{% endblock %}
+{% block meta %}{{ project.overview|striptags|truncatewords:25 }}{% endblock %}
+{% block content %}
+
+<!-- Hero -->
+<section class="bg-blue text-white py-5">
+  <div class="container">
+    <a href="{% url 'projects-portfolio' %}" class="text-white-50 text-decoration-none small">&larr; Back to projects</a>
+    <h1 class="fw-bold mt-3">{{ project.title }}</h1>
+    <div class="d-flex flex-wrap gap-3 mt-3">
+      {% if project.client %}<span class="text-white-50"><strong>Client:</strong> {{ project.client.name }}</span>{% endif %}
+      {% if project.industry %}<span class="text-white-50"><strong>Industry:</strong> {{ project.industry }}</span>{% endif %}
+      {% if project.location %}<span class="text-white-50"><strong>Location:</strong> {{ project.location }}</span>{% endif %}
+      {% if project.status %}<span class="badge bg-{% if project.status == 'ongoing' %}warning{% else %}success{% endif %}">{{ project.get_status_display }}</span>{% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Meta bar -->
+{% if project.project_value or project.duration or project.team_size %}
+<section class="bg-gray border-bottom">
+  <div class="container py-3">
+    <div class="row g-3 text-center">
+      {% if project.project_value %}
+      <div class="col-4"><small class="text-muted d-block">Project Value</small><strong>₹{{ project.project_value }} Cr</strong></div>
+      {% endif %}
+      {% if project.duration %}
+      <div class="col-4"><small class="text-muted d-block">Duration</small><strong>{{ project.duration }}</strong></div>
+      {% endif %}
+      {% if project.team_size %}
+      <div class="col-4"><small class="text-muted d-block">Team Size</small><strong>{{ project.team_size }} Engineers</strong></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% include "partials/map_embed.html" with location=project.location %}
+
+<section class="container py-5">
+
+  {% if project.thumbnail %}
+  <img src="{{ project.thumbnail.url }}" class="img-fluid rounded mb-4 w-100" alt="{{ project.title }}" loading="lazy" style="max-height:500px;object-fit:cover">
+  {% endif %}
+
+  <div class="row">
+    <div class="col-lg-8">
+      {% if project.overview %}<h2 class="h4 fw-bold">Overview</h2><p>{{ project.overview|linebreaks }}</p>{% endif %}
+      {% if project.challenges %}<h2 class="h4 fw-bold mt-4">Business Challenges</h2><p>{{ project.challenges|linebreaks }}</p>{% endif %}
+      {% if project.solution %}<h2 class="h4 fw-bold mt-4">Proposed Solution</h2><p>{{ project.solution|linebreaks }}</p>{% endif %}
+    </div>
+    <div class="col-lg-4">
+      {% if project.technologies.all %}
+      <div class="card border-0 bg-gray p-3 mb-3">
+        <h3 class="h6 fw-bold">Technologies Used</h3>
+        <div class="d-flex flex-wrap gap-1">
+          {% for t in project.technologies.all %}
+          <span class="badge bg-light text-dark border">{{ t.name }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if project.deliverables.all %}
+      <div class="card border-0 bg-gray p-3 mb-3">
+        <h3 class="h6 fw-bold">Deliverables</h3>
+        <ul class="list-unstyled small mb-0">
+          {% for d in project.deliverables.all %}
+          <li class="mb-1">✓ {{ d.title }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if project.milestones.all %}
+  <!-- Project Timeline -->
+  <h2 class="h4 fw-bold mt-5">Project Timeline</h2>
+  <div class="mt-3">
+    {% for m in project.milestones.all %}
+    <div class="d-flex gap-3 mb-3">
+      <div class="text-center flex-shrink-0" style="width:50px">
+        <div class="bg-orange text-white rounded-circle d-flex align-items-center justify-content-center" style="width:40px;height:40px;margin:0 auto">
+          <span class="small fw-bold">{{ forloop.counter }}</span>
+        </div>
+        {% if not forloop.last %}<div class="border-start mx-auto" style="height:100%;width:1px"></div>{% endif %}
+      </div>
+      <div>
+        <h3 class="h6 fw-bold mb-1">{{ m.title }}</h3>
+        {% if m.description %}<p class="text-muted small mb-1">{{ m.description }}</p>{% endif %}
+        {% if m.date %}<small class="text-muted">{{ m.date|date:"M Y" }}</small>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if project.before_after.all %}
+  <!-- Before & After Gallery -->
+  <h2 class="h4 fw-bold mt-5">Before &amp; After</h2>
+  <div class="row g-3 mt-2">
+    {% for ba in project.before_after.all %}
+    <div class="col-md-6">
+      <div class="card border-0 bg-gray">
+        <div class="card-body p-2">
+          <div class="row g-1">
+            <div class="col-6">
+              <img src="{{ ba.before_image.url }}" class="img-fluid rounded" alt="Before" loading="lazy">
+              <small class="text-muted d-block text-center mt-1">Before</small>
+            </div>
+            <div class="col-6">
+              <img src="{{ ba.after_image.url }}" class="img-fluid rounded" alt="After" loading="lazy">
+              <small class="text-muted d-block text-center mt-1">After</small>
+            </div>
+          </div>
+          {% if ba.caption %}<p class="text-muted small text-center mt-2 mb-0">{{ ba.caption }}</p>{% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if project.gallery.all %}
+  <h2 class="h4 fw-bold mt-5">Project Gallery</h2>
+  <div class="masonry-grid mt-3">
+    {% for g in project.gallery.all %}
+    <div class="masonry-item">
+      <a href="#" class="gallery-trigger" data-src="{{ g.image.url }}">
+        <img src="{{ g.image.url }}" class="img-fluid rounded" alt="{{ g.caption }}" loading="lazy" style="cursor:pointer">
+      </a>
+      {% if g.caption %}<small class="text-muted mt-1 d-block">{{ g.caption }}</small>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if project.videos.all %}
+  <h2 class="h4 fw-bold mt-5">Videos</h2>
+  <div class="row g-3 mt-2">
+    {% for v in project.videos.all %}
+    <div class="col-md-6">
+      <div class="ratio ratio-16x9">
+        <iframe src="{{ v.video_url }}" title="{{ v.title }}" allowfullscreen loading="lazy"></iframe>
+      </div>
+      {% if v.title %}<small class="text-muted mt-1 d-block">{{ v.title }}</small>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+<!-- CTA -->
+<section class="cta-section text-white py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Need a Similar Solution?</h2>
+    <p class="lead text-white-50 mb-4">Contact our engineering team for a detailed consultation.</p>
+    <div class="d-flex flex-wrap justify-content-center gap-2">
+      <a href="{% url 'contact' %}" class="btn btn-brand btn-lg">Request Similar Project</a>
+      <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">Book Technical Meeting</a>
+      <a href="{% url 'downloads' %}" class="btn btn-cyan btn-lg">Download Company Profile</a>
+    </div>
+  </div>
+</section>
+
+{% if related %}
+<section class="container py-5">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 class="fw-bold mb-0">Related Projects</h2>
+    <a href="{% url 'projects-portfolio' %}" class="btn btn-outline-brand btn-sm">View All</a>
+  </div>
+  <div class="row g-4">
+    {% for r in related %}
+    <div class="col-md-4">
+      <a href="{% url 'project-detail' r.slug %}" class="text-decoration-none">
+        <div class="card project-card h-100 shadow-sm">
+          {% if r.thumbnail %}
+          <img src="{{ r.thumbnail.url }}" class="card-img-top" alt="{{ r.title }}" loading="lazy">
+          {% endif %}
+          <div class="card-body">
+            <h3 class="h6 text-dark">{{ r.title }}</h3>
+            <p class="text-muted small mb-0">{{ r.industry }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- Floating Contact -->
+<a href="{% url 'contact' %}" class="floating-contact" aria-label="Get a Quote">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+  </svg>
+</a>
+{% endblock %}
+
+{% block scripts %}
+<script nonce="{{ request.csp_nonce }}">
+document.addEventListener('DOMContentLoaded', function() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+  document.querySelectorAll('.gallery-trigger').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      lightboxImg.src = this.dataset.src;
+      lightbox.classList.add('active');
+    });
+  });
+  lightboxClose.addEventListener('click', function() {
+    lightbox.classList.remove('active');
+  });
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) lightbox.classList.remove('active');
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+});
+</script>
+{% endblock %}

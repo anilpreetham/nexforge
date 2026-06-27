@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Downloads — NexForge Automation{% endblock %}
+{% block content %}
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">Resources &amp; Brochures</h1>
+    <p class="text-muted">Access our latest company profiles, brochures, and case studies.</p>
+  </div>
+
+  {% if downloads_by_type %}
+  {% for type_label, items in downloads_by_type.items %}
+  {% if items %}
+  <h2 class="h4 fw-bold mb-3 mt-4">{{ type_label|title }}</h2>
+  <div class="list-group mb-4">
+    {% for d in items %}
+    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <strong>{{ d.title }}</strong>
+        {% if d.created_at %}<br><small class="text-muted">{{ d.created_at|date:"F Y" }}</small>{% endif %}
+      </div>
+      <a href="{{ d.file.url }}" class="btn btn-outline-brand btn-sm" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  {% if not downloads_by_type or downloads_by_type.values|length == 0 %}
+  <p class="text-muted text-center py-5">No downloads available yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

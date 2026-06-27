@@ -1,0 +1,51 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f6; }
+    .container { max-width: 600px; margin: 24px auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .header { background: #0B2E59; padding: 24px; }
+    .header h1 { color: #fff; margin: 0; font-size: 20px; }
+    .header span { color: #F57C00; }
+    .body { padding: 24px; }
+    .field { margin-bottom: 16px; }
+    .field-label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    .field-value { font-size: 15px; color: #222; margin-top: 4px; }
+    .message-box { background: #f8f9fa; border-left: 4px solid #0B2E59; padding: 16px; margin-top: 8px; border-radius: 4px; white-space: pre-wrap; }
+    .footer { padding: 16px 24px; background: #f4f4f6; font-size: 12px; color: #888; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Nex<span>Forge</span> Automation</h1>
+      <p style="color:rgba(255,255,255,0.7);margin:4px 0 0;font-size:14px">New Enquiry Notification</p>
+    </div>
+    <div class="body">
+      <div class="field">
+        <div class="field-label">Name</div>
+        <div class="field-value">{{ enquiry.name }}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Email</div>
+        <div class="field-value"><a href="mailto:{{ enquiry.email }}">{{ enquiry.email }}</a></div>
+      </div>
+      {% if enquiry.phone %}
+      <div class="field">
+        <div class="field-label">Phone</div>
+        <div class="field-value">{{ enquiry.phone }}</div>
+      </div>
+      {% endif %}
+      <div class="field">
+        <div class="field-label">Message</div>
+        <div class="message-box">{{ enquiry.message }}</div>
+      </div>
+    </div>
+    <div class="footer">
+      NexForge Industrial Automation Pvt. Ltd. &bull; enquiry@nexforgeautomation.com
+    </div>
+  </div>
+</body>
+</html>

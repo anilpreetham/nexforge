@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}FAQ — NexForge Automation{% endblock %}
+{% block content %}
+<section class="container py-5" style="max-width:820px">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">Frequently Asked Questions</h1>
+    <p class="text-muted">Find answers to common queries about our services, technologies, and solutions.</p>
+  </div>
+
+  {% if general_faqs %}
+  <h2 class="h4 fw-bold mb-3">General Questions</h2>
+  <div class="accordion mb-5" id="faqGeneral">
+    {% for faq in general_faqs %}
+    <div class="accordion-item">
+      <h3 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#g{{ forloop.counter }}">
+          {{ faq.question }}
+        </button>
+      </h3>
+      <div id="g{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#faqGeneral">
+        <div class="accordion-body">{{ faq.answer|linebreaks }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if service_faqs %}
+  <h2 class="h4 fw-bold mb-3">Service-Specific Questions</h2>
+  <div class="accordion" id="faqService">
+    {% for faq in service_faqs %}
+    <div class="accordion-item">
+      <h3 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#s{{ forloop.counter }}">
+          {{ faq.question }}
+        </button>
+      </h3>
+      <div id="s{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#faqService">
+        <div class="accordion-body">{{ faq.answer|linebreaks }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if not general_faqs and not service_faqs %}
+  <p class="text-muted text-center py-5">No FAQs available yet.</p>
+  {% endif %}
+</section>
+{% endblock %}
