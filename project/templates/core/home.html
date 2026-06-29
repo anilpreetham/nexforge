@@ -362,46 +362,4 @@
 
 {% endblock %}
 
-{% block scripts %}
-<script nonce="{{ request.csp_nonce }}">
-document.addEventListener('DOMContentLoaded', function() {
-  // Count-up animation for stat counters
-  const counters = document.querySelectorAll('.count-up');
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseFloat(el.dataset.target);
-        const isFloat = target !== Math.floor(target);
-        let current = 0;
-        const steps = 60;
-        const increment = target / steps;
-        const timer = setInterval(function() {
-          current += increment;
-          if (current >= target) {
-            el.textContent = (isFloat ? target.toFixed(1) : Math.floor(target)) + '+';
-            clearInterval(timer);
-          } else {
-            el.textContent = isFloat ? current.toFixed(1) : Math.floor(current);
-          }
-        }, 25);
-        observer.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(function(c) { observer.observe(c); });
-
-  // Scroll-triggered animations
-  const animateEls = document.querySelectorAll('.animate-on-scroll');
-  const animObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        animObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  animateEls.forEach(function(el) { animObserver.observe(el); });
-});
-</script>
-{% endblock %}
+{# Counters + scroll-reveal handled globally by static/js/ui.js #}

@@ -8,6 +8,7 @@ from pathlib import Path
 
 import dj_database_url
 import environ
+from csp.constants import NONCE
 
 # config/settings/base.py -> config/settings -> config -> project root
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -174,7 +175,7 @@ SPECTACULAR_SETTINGS = {
 CONTENT_SECURITY_POLICY = {
     "DIRECTIVES": {
         "default-src": ["'self'"],
-        "script-src": ["'self'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
+        "script-src": [NONCE, "'self'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
         # 'unsafe-inline' kept for style only: the templates use inline style="" attributes,
         # which a nonce cannot cover. Style attributes cannot execute scripts, so XSS risk is
         # low; script-src stays strict (nonce + allowlist, no inline).
@@ -188,6 +189,5 @@ CONTENT_SECURITY_POLICY = {
         "form-action": ["'self'"],
         "frame-ancestors": ["'none'"],
     },
-    "INCLUDE_NONCE_IN": ["script-src"],
 }
 CONTENT_SECURITY_POLICY_REPORT_ONLY = env("CSP_REPORT_ONLY")

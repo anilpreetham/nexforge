@@ -46,3 +46,8 @@ htmlcov/
 *.swp
 .DS_Store
 Thumbs.db
+
+# Test/verification artifacts
+.playwright-mcp/
+project/.playwright-mcp/
+/project/*.jpeg
