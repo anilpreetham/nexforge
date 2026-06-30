@@ -21,7 +21,7 @@ class EnquirySerializer(serializers.ModelSerializer):
             "assigned_to",
             "created_at",
         ]
-        read_only_fields = ["id", "created_at"]
+        read_only_fields = ["id", "assigned_to", "created_at"]
 
     def validate_message(self, value: str) -> str:
         if len(value.strip()) < 5:

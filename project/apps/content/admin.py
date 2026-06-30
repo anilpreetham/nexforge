@@ -29,8 +29,8 @@ class AwardAdmin(admin.ModelAdmin):
 
 @admin.register(Download)
 class DownloadAdmin(admin.ModelAdmin):
-    list_display = ("title", "type", "created_at")
-    list_filter = ("type",)
+    list_display = ("title", "type", "project", "created_at")
+    list_filter = ("type", "project")
     search_fields = ("title",)
 
 

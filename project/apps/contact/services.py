@@ -1,8 +1,12 @@
 """Services for contact app - business logic layer."""
 
 from django.conf import settings
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
+
+try:
+    from mailer import send_mail
+except ImportError:
+    from django.core.mail import send_mail
 
 from apps.contact.models import Enquiry
 

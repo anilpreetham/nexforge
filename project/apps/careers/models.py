@@ -32,6 +32,8 @@ class JobOpening(models.Model):
 
     class Meta:
         ordering = ["-posted_at"]
+        verbose_name = "job opening"
+        verbose_name_plural = "job openings"
         indexes = [models.Index(fields=["is_open"])]
 
     def __str__(self) -> str:
@@ -39,7 +41,7 @@ class JobOpening(models.Model):
 
     def save(self, *args, **kwargs) -> None:
         if not self.slug:
-            self.slug = slugify(self.title)[:50]
+            self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
 
@@ -78,6 +80,8 @@ class JobApplication(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = "job application"
+        verbose_name_plural = "job applications"
         indexes = [models.Index(fields=["status"])]
 
     def __str__(self) -> str:

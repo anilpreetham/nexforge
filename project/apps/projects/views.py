@@ -12,13 +12,15 @@ class ProjectViewSet(ReadOnlyModelViewSet):
 
     lookup_field = "slug"
     permission_classes = [AllowAny]
-    queryset = (
-        Project.objects.select_related("industry", "client").prefetch_related(
-            "technologies", "gallery", "videos", "deliverables"
-        )
-    )
+    pagination_class = None
     filterset_fields = ["status", "industry__slug", "technologies__name"]
     search_fields = ["title", "overview", "location"]
+
+    def get_queryset(self):
+        qs = Project.objects.select_related("industry", "client")
+        if self.action == "retrieve":
+            qs = qs.prefetch_related("technologies", "gallery", "videos", "deliverables")
+        return qs
 
     def get_serializer_class(self):
         if self.action == "retrieve":

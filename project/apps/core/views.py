@@ -18,34 +18,17 @@ from apps.core.selectors import (
     get_featured_projects,
     get_active_services,
     get_active_testimonials,
-    get_published_blog_posts,
-    get_active_faqs,
-    get_all_gallery_items,
     get_all_awards,
-    get_all_downloads,
     get_all_industries,
 )
-from apps.projects.selectors import get_project_detail, get_related_projects
-from apps.services.selectors import get_service_detail, get_active_services as get_services_list
-from apps.blog.selectors import get_post_detail, get_published_posts, get_all_categories
-from apps.content.selectors import (
-    get_faqs_by_category,
-    get_active_testimonials as get_content_testimonials,
-)
+from apps.projects.selectors import get_related_projects
+from apps.services.selectors import get_active_services as get_services_list
+from apps.blog.selectors import get_published_posts
+from apps.content.selectors import get_faqs_by_category
 
 
 def home(request):
     """Landing page: featured projects, active services, testimonials, stats, industries, process."""
-    stats = {
-        "employees": "145+",
-        "projects": "650+",
-        "clients": "300+",
-        "cities": "42",
-        "industries": "12",
-        "satisfaction": "98%",
-        "efficiency": "18%",
-        "downtime": "35%",
-    }
     industries = Industry.objects.all().order_by("name")[:8]
     process_steps = [
         {"number": "01", "title": "Discover", "desc": "We analyze your factory operations and identify automation opportunities."},
@@ -58,7 +41,6 @@ def home(request):
         "featured": get_featured_projects(6),
         "services": get_active_services(6),
         "testimonials": get_active_testimonials(6),
-        "stats": stats,
         "industries": industries,
         "process_steps": process_steps,
         "client_logos": clients_with_logos,
@@ -95,11 +77,13 @@ def about(request):
         "End-to-End Engineering Services",
         "Turnkey Project Execution",
     ]
+    from apps.core.models import BranchOffice
     ctx = {
         "awards": Award.objects.all(),
         "stats": stats,
         "values": values,
         "why_choose": why_choose,
+        "branches": BranchOffice.objects.all().order_by("order"),
     }
     return render(request, "core/about.html", ctx)
 
@@ -129,12 +113,18 @@ def project_detail(request, slug):
     project = get_object_or_404(
         Project.objects.select_related("industry", "client").prefetch_related(
             "technologies", "gallery", "videos", "deliverables",
-            "milestones", "before_after",
+            "milestones", "before_after", "downloads",
         ),
         slug=slug,
     )
+    from apps.content.models import Download
     related = get_related_projects(project, 3)
-    return render(request, "projects/detail.html", {"project": project, "related": related})
+    project_downloads = project.downloads.all()
+    return render(request, "projects/detail.html", {
+        "project": project,
+        "related": related,
+        "project_downloads": project_downloads,
+    })
 
 
 # --- Services -------------------------------------------------------------
@@ -214,11 +204,9 @@ def blog_list(request):
     paginator = Paginator(posts, 9)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    categories = get_all_categories()
     featured = posts.filter(is_featured=True).first()
     return render(request, "blog/list.html", {
         "page_obj": page_obj,
-        "categories": categories,
         "featured_post": featured,
     })
 
@@ -265,7 +253,25 @@ def downloads(request):
 
 
 def contact(request):
-    return render(request, "contact/contact.html")
+    from apps.core.models import BranchOffice
+    import json
+    branches = BranchOffice.objects.filter(latitude__isnull=False, longitude__isnull=False).order_by("order")
+    branch_json = json.dumps([
+        {
+            "name": b.name,
+            "address": b.address,
+            "city": b.city,
+            "lat": b.latitude,
+            "lng": b.longitude,
+            "is_hq": b.is_headquarters,
+            "phone": b.phone,
+        }
+        for b in branches
+    ])
+    return render(request, "contact/contact.html", {
+        "branches": branches,
+        "branch_json": branch_json,
+    })
 
 
 # --- Careers --------------------------------------------------------------

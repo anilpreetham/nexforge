@@ -49,6 +49,19 @@ build/
 # Docker
 .dockerignore
 
+# Ruff cache
+.ruff_cache/
+
+# Agent/IDE config
+.claude/
+.qodo/
+.playwright-mcp/
+.mcp.json
+
+# Design mockups
+*.jpeg
+*.jpg
+
 # Misc
 *.pot
 *.pyc

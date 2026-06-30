@@ -34,11 +34,9 @@
       <div class="col-lg-4">
         <h6 class="fw-bold mb-3">Our Services</h6>
         <ul class="list-unstyled small">
-          <li class="mb-2"><a href="{% url 'service-detail' 'plc-programming-industrial-control-systems' %}">PLC Programming</a></li>
-          <li class="mb-2"><a href="{% url 'service-detail' 'scada-development' %}">SCADA Development</a></li>
-          <li class="mb-2"><a href="{% url 'service-detail' 'industrial-iot-solutions' %}">Industrial IoT</a></li>
-          <li class="mb-2"><a href="{% url 'service-detail' 'robotics-integration' %}">Robotics Integration</a></li>
-          <li class="mb-2"><a href="{% url 'service-detail' 'machine-vision-inspection' %}">Machine Vision</a></li>
+          {% for s in footer_services %}
+          <li class="mb-2"><a href="{% url 'service-detail' s.slug %}">{{ s.title }}</a></li>
+          {% endfor %}
         </ul>
       </div>
     </div>

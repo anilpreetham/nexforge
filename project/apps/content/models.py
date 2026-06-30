@@ -39,6 +39,8 @@ class GalleryItem(models.Model):
 
     class Meta:
         ordering = ["order"]
+        verbose_name = "gallery item"
+        verbose_name_plural = "gallery items"
 
     def __str__(self) -> str:
         return self.title
@@ -54,6 +56,8 @@ class Award(models.Model):
 
     class Meta:
         ordering = ["-year"]
+        verbose_name = "award"
+        verbose_name_plural = "awards"
 
     def __str__(self) -> str:
         return f"{self.title} ({self.year})"
@@ -74,10 +78,19 @@ class Download(models.Model):
         validators=[validate_document_extension, MaxFileSizeValidator(20)],
     )
     type = models.CharField(max_length=20, choices=Type.choices)
+    project = models.ForeignKey(
+        "projects.Project",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="downloads",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = "download"
+        verbose_name_plural = "downloads"
 
     def __str__(self) -> str:
         return self.title
@@ -100,6 +113,8 @@ class Testimonial(models.Model):
 
     class Meta:
         ordering = ["-pk"]
+        verbose_name = "testimonial"
+        verbose_name_plural = "testimonials"
 
     __test__ = False
 

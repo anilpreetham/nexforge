@@ -25,6 +25,9 @@ django-csp==4.0
 # Caching / Performance
 gunicorn==26.0.0
 
+# Async email queuing
+django-mailer==2.2
+
 # Testing
 pytest==9.1.1
 pytest-django==4.12.0

@@ -32,6 +32,7 @@ class Enquiry(models.Model):
     class Meta:
         ordering = ["-created_at"]
         indexes = [models.Index(fields=["status"])]
+        verbose_name = "enquiry"
         verbose_name_plural = "enquiries"
 
     def __str__(self) -> str:

@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from .models import Client, Industry, Technology
+from .models import BranchOffice, Client, Industry, Technology
 
 
 @admin.register(Industry)
@@ -25,3 +25,10 @@ class ClientAdmin(admin.ModelAdmin):
     list_filter = ("industry",)
     search_fields = ("name",)
     prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(BranchOffice)
+class BranchOfficeAdmin(admin.ModelAdmin):
+    list_display = ("name", "city", "state", "country", "is_headquarters", "phone")
+    list_filter = ("is_headquarters", "country")
+    search_fields = ("name", "city")

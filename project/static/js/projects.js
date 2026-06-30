@@ -10,6 +10,7 @@
   const clearBtn = document.getElementById("clear-filters");
   const toggleView = document.getElementById("toggle-view");
   const resultCount = document.getElementById("result-count");
+  const quickFilters = document.querySelectorAll(".quick-filter");
   let isListView = false;
 
   function card(p) {
@@ -83,9 +84,32 @@
       if (statusSel) statusSel.value = "";
       if (industrySel) industrySel.value = "";
       if (techSel) techSel.value = "";
+      quickFilters.forEach(function(b) { b.className = b.className.replace(" active", ""); b.className = b.className.replace("btn-outline-brand", "btn-outline-secondary"); });
+      document.querySelector('.quick-filter[data-filter=""]').className = "btn btn-sm btn-outline-brand quick-filter active";
       loadProjects();
     });
   }
+  // Quick filter buttons
+  quickFilters.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      quickFilters.forEach(function(b) { b.className = b.className.replace(" active", ""); b.className = b.className.replace("btn-outline-brand", "btn-outline-secondary"); });
+      this.className = this.className.replace("btn-outline-secondary", "btn-outline-brand") + " active";
+      var filter = this.dataset.filter;
+      // Map quick filter values to the proper select fields
+      if (filter === "ongoing" || filter === "completed") {
+        statusSel.value = filter;
+        techSel.value = "";
+      } else if (filter === "Robotics" || filter === "IIoT" || filter === "Machine Vision" || filter === "AI Analytics") {
+        techSel.value = filter;
+        statusSel.value = "";
+      } else {
+        statusSel.value = "";
+        techSel.value = "";
+      }
+      loadProjects();
+    });
+  });
+
   if (toggleView) {
     toggleView.addEventListener("click", function() {
       isListView = !isListView;

@@ -3,7 +3,11 @@
 import logging
 
 from django.conf import settings
-from django.core.mail import send_mail
+
+try:
+    from mailer import send_mail
+except ImportError:
+    from django.core.mail import send_mail
 
 logger = logging.getLogger(__name__)
 

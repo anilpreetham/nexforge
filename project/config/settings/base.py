@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_spectacular",
     "csp",
+    "mailer",
     # Local apps
     "apps.core",
     "apps.projects",
@@ -194,7 +195,7 @@ CONTENT_SECURITY_POLICY = {
         # add it here (e.g. "https://cdn.coverr.co", "https://videos.pexels.com").
         "media-src": ["'self'", "data:"],
         "connect-src": ["'self'", "https://www.google-analytics.com", "https://region1.google-analytics.com"],
-        "frame-src": ["https://www.google.com"],
+        "frame-src": ["https://www.google.com", "https://www.youtube.com", "https://www.youtube-nocookie.com", "https://player.vimeo.com"],
         "object-src": ["'none'"],
         "base-uri": ["'self'"],
         "form-action": ["'self'"],

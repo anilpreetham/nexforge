@@ -24,6 +24,10 @@ def _dashboard_data():
         "recent_enquiry_count": Enquiry.objects.filter(
             created_at__gte=first_of_month
         ).count(),
+        "new_enquiry_count": Enquiry.objects.filter(status=Enquiry.Status.NEW).count(),
+        "in_progress_enquiry_count": Enquiry.objects.filter(status=Enquiry.Status.IN_PROGRESS).count(),
+        "converted_enquiry_count": Enquiry.objects.filter(status=Enquiry.Status.CONVERTED).count(),
+        "closed_enquiry_count": Enquiry.objects.filter(status=Enquiry.Status.CLOSED).count(),
         "blog_count": BlogPost.objects.count(),
         "service_count": Service.objects.filter(is_active=True).count(),
         "testimonial_count": Testimonial.objects.filter(is_active=True).count(),

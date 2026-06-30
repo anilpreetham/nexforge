@@ -24,7 +24,7 @@
   <div class="container py-3">
     <div class="row g-3 text-center">
       {% if project.project_value %}
-      <div class="col-4"><small class="text-muted d-block">Project Value</small><strong>₹{{ project.project_value }} Cr</strong></div>
+      <div class="col-4"><small class="text-muted d-block">Project Value</small><strong>₹{{ project.project_value }}</strong></div>
       {% endif %}
       {% if project.duration %}
       <div class="col-4"><small class="text-muted d-block">Duration</small><strong>{{ project.duration }}</strong></div>
@@ -151,6 +151,25 @@
     {% endfor %}
   </div>
   {% endif %}
+
+  {% if project_downloads %}
+  <h2 class="h4 fw-bold mt-5">Downloads</h2>
+  <div class="row g-3 mt-2">
+    {% for d in project_downloads %}
+    <div class="col-md-4">
+      <div class="card border-0 bg-gray p-3 text-center h-100">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" class="mx-auto mb-2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <h3 class="h6 mb-2">{{ d.title }}</h3>
+        {% if d.file %}<a href="{{ d.file.url }}" class="btn btn-sm btn-outline-brand" download>Download</a>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
 </section>
 
 <!-- CTA -->
@@ -159,8 +178,8 @@
     <h2 class="fw-bold mb-3">Need a Similar Solution?</h2>
     <p class="lead text-white-50 mb-4">Contact our engineering team for a detailed consultation.</p>
     <div class="d-flex flex-wrap justify-content-center gap-2">
-      <a href="{% url 'contact' %}" class="btn btn-brand btn-lg">Request Similar Project</a>
-      <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">Book Technical Meeting</a>
+      <a href="{% url 'contact' %}?source=project-{{ project.slug }}" class="btn btn-brand btn-lg">Request Similar Project</a>
+      <a href="{% url 'contact' %}?source=project-{{ project.slug }}" class="btn btn-outline-light btn-lg">Book Technical Meeting</a>
       <a href="{% url 'downloads' %}" class="btn btn-cyan btn-lg">Download Company Profile</a>
     </div>
   </div>

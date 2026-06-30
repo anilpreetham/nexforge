@@ -23,6 +23,8 @@ class Service(models.Model):
 
     class Meta:
         ordering = ["order"]
+        verbose_name = "service"
+        verbose_name_plural = "services"
 
     def __str__(self) -> str:
         return self.title
@@ -41,6 +43,11 @@ class ServiceBenefit(models.Model):
     )
     text = models.CharField(max_length=200)
 
+    class Meta:
+        ordering = ["pk"]
+        verbose_name = "service benefit"
+        verbose_name_plural = "service benefits"
+
     def __str__(self) -> str:
         return self.text
 
@@ -52,6 +59,11 @@ class ServiceDeliverable(models.Model):
         Service, on_delete=models.CASCADE, related_name="deliverables"
     )
     title = models.CharField(max_length=180)
+
+    class Meta:
+        ordering = ["pk"]
+        verbose_name = "service deliverable"
+        verbose_name_plural = "service deliverables"
 
     def __str__(self) -> str:
         return self.title

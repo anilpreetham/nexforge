@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.templatetags.static import static
 
+from apps.services.models import Service
+
 
 def _resolve(url: str) -> str:
     """Allow either a full URL/absolute path or a static file path."""
@@ -15,4 +17,5 @@ def global_settings(request):
         "GOOGLE_ANALYTICS_ID": getattr(settings, "GOOGLE_ANALYTICS_ID", ""),
         "HERO_VIDEO_URL": _resolve(getattr(settings, "HERO_VIDEO_URL", "")),
         "HERO_VIDEO_POSTER": _resolve(getattr(settings, "HERO_VIDEO_POSTER", "")),
+        "footer_services": Service.objects.filter(is_active=True).order_by("order")[:5],
     }

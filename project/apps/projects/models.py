@@ -44,6 +44,8 @@ class Project(TimeStamped):
 
     class Meta:
         ordering = ["order", "-created_at"]
+        verbose_name = "project"
+        verbose_name_plural = "projects"
         indexes = [models.Index(fields=["status", "is_featured"])]
 
     def __str__(self) -> str:
@@ -82,6 +84,11 @@ class ProjectVideo(models.Model):
     video_url = models.URLField()
     title = models.CharField(max_length=150, blank=True)
 
+    class Meta:
+        ordering = ["pk"]
+        verbose_name = "project video"
+        verbose_name_plural = "project videos"
+
     def __str__(self) -> str:
         return self.title or self.video_url
 
@@ -93,6 +100,11 @@ class ProjectDeliverable(models.Model):
         Project, on_delete=models.CASCADE, related_name="deliverables"
     )
     title = models.CharField(max_length=180)
+
+    class Meta:
+        ordering = ["pk"]
+        verbose_name = "project deliverable"
+        verbose_name_plural = "project deliverables"
 
     def __str__(self) -> str:
         return self.title

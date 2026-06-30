@@ -10,8 +10,8 @@ from django.utils import timezone
 
 from apps.blog.models import BlogCategory, BlogPost
 from apps.content.models import FAQ, Award, Download, Testimonial, GalleryItem
-from apps.core.models import Client, Industry, Technology
-from apps.projects.models import Project, ProjectDeliverable, ProjectMilestone
+from apps.core.models import BranchOffice, Client, Industry, Technology
+from apps.projects.models import Project, ProjectDeliverable, ProjectMilestone, ProjectVideo, ProjectGallery
 from apps.services.models import Service, ServiceBenefit, ServiceDeliverable
 
 
@@ -358,13 +358,13 @@ We specialize in upgrading legacy automation systems while ensuring seamless com
                 "industry": "Automotive",
                 "status": "ongoing",
                 "location": "Chakan, Pune",
-                "project_value": 18.5,
+                "project_value": "18.5 Cr",
                 "duration": "16 Months",
                 "team_size": 28,
                 "is_featured": True,
-                "overview": "Complete automation of an electric vehicle manufacturing plant with robotic welding stations, conveyor automation, battery assembly monitoring, predictive maintenance dashboards, and cloud-connected production analytics.",
-                "challenges": "Low production efficiency, high manual dependency, inconsistent quality, and lack of centralized production monitoring.",
-                "solution": "Develop a fully automated manufacturing ecosystem integrating PLC controllers, robotic arms, SCADA visualization, Industrial IoT sensors, AI analytics, and centralized reporting dashboards.",
+                "overview": "Complete automation of an electric vehicle manufacturing plant with robotic welding stations, conveyor automation, battery assembly monitoring, predictive maintenance dashboards, and cloud-connected production analytics.\n\nVoltEdge Electric Vehicles, a rapidly growing EV manufacturer in India, needed to scale production from 12,000 to 50,000 vehicles per year. The existing semi-automated production line relied heavily on manual labor, leading to quality inconsistencies, production bottlenecks, and high operational costs. NexForge was engaged as the primary automation partner to design, develop, and commission a fully integrated Industry 4.0 manufacturing ecosystem.\n\nThe project encompassed the entire production lifecycle — from body-in-white welding and paint shop automation to battery pack assembly, final vehicle assembly, and quality inspection. The solution architecture integrates Siemens PLC controllers for real-time machine control, ABB robotic arms for precision welding and material handling, a plant-wide SCADA system for centralized monitoring, and industrial IoT sensors connected to an AI analytics platform for predictive maintenance and quality prediction.\n\nThe plant now operates with end-to-end digital visibility. Production managers can monitor every station in real time from a centralized control room or via mobile dashboards. The system automatically generates production reports, tracks quality metrics, optimizes energy consumption, and predicts maintenance requirements before failures occur. This project represents one of the most comprehensive EV manufacturing automation deployments in India.",
+                "challenges": "• Low production efficiency with only 12,000 vehicles per year capacity\n• High manual dependency across welding, assembly, and quality inspection stations\n• Inconsistent weld quality leading to rework rates exceeding 8%\n• Lack of centralized production monitoring — managers had no real-time visibility\n• Manual battery assembly process with no traceability or quality tracking\n• High energy costs due to unoptimized equipment scheduling\n• Frequent unplanned downtime from reactive maintenance practices\n• No integration between production floor systems and enterprise ERP",
+                "solution": "Develop a fully automated manufacturing ecosystem integrating PLC controllers, robotic arms, SCADA visualization, Industrial IoT sensors, AI analytics, and centralized reporting dashboards.\n\nThe solution architecture was designed around six integrated layers: (1) Field level — sensors, actuators, and variable frequency drives connected via PROFINET and EtherNet/IP networks; (2) Control level — 24 Siemens S7-1500 PLCs managing individual production cells with coordinated motion control for robotic integration; (3) Supervisory level — plant-wide WinCC SCADA system with 15 operator stations and a centralized video wall; (4) IIoT layer — 450+ wireless sensors monitoring vibration, temperature, current, and energy consumption on critical equipment; (5) Analytics layer — AI/ML platform using Python and TensorFlow for predictive maintenance models and quality prediction; (6) Enterprise layer — REST APIs integrating production data with the client's ERP system for materials planning and inventory management.",
                 "techs": ["Siemens TIA Portal", "SCADA", "IIoT", "ABB Robotics", "Python", "PostgreSQL", "Machine Vision", "AI Analytics"],
                 "deliverables": ["PLC Programming", "SCADA Dashboard", "Robot Programming", "IoT Integration", "Control Panels", "Production Dashboard", "Operator Training", "Documentation", "AMC Support"],
             },
@@ -375,13 +375,13 @@ We specialize in upgrading legacy automation systems while ensuring seamless com
                 "industry": "Pharmaceutical",
                 "status": "ongoing",
                 "location": "Hyderabad",
-                "project_value": 9.8,
+                "project_value": "9.8 Cr",
                 "duration": "12 Months",
                 "team_size": 16,
                 "is_featured": True,
-                "overview": "Automatic batch tracking, electronic batch records, vision inspection, production reports, and 21 CFR Part 11 compliance for pharmaceutical manufacturing lines.",
-                "challenges": "Regulatory compliance requirements, manual batch record keeping, quality inconsistencies, and lack of real-time visibility.",
-                "solution": "Implemented Allen Bradley PLC controls with WinCC SCADA, barcode tracking, vision inspection systems, and electronic batch records management.",
+                "overview": "Automatic batch tracking, electronic batch records, vision inspection, production reports, and 21 CFR Part 11 compliance for pharmaceutical manufacturing lines.\n\nMedixa Pharmaceuticals required a complete production line automation solution for their new tablet manufacturing facility in Hyderabad. The project scope covered end-to-end automation from raw material dispensing through tablet compression, coating, blister packaging, and cartoning. A critical requirement was 21 CFR Part 11 compliance for electronic records and signatures, enabling the client to move from paper-based batch records to a fully digital quality management system.\n\nThe automation architecture integrates Allen Bradley CompactLogix PLCs controlling individual production equipment, with a plant-wide WinCC SCADA system providing unified visualization. Machine vision inspection stations at critical quality checkpoints automatically detect defects in tablet appearance, blister seal integrity, and carton print quality. The IIoT layer captures equipment data for OEE calculation, predictive maintenance, and energy monitoring. An electronic batch record (EBR) system automatically captures production parameters, quality test results, and equipment data for each batch, eliminating manual data entry and reducing documentation errors.",
+                "challenges": "• Strict regulatory compliance requirements under 21 CFR Part 11 and GMP guidelines\n• Manual paper-based batch record keeping prone to errors and delays\n• Quality inconsistencies in tablet weight, hardness, and coating uniformity\n• No real-time visibility into production line performance\n• Lengthy batch release cycles due to manual documentation review\n• Difficulty maintaining environmental conditions (temperature, humidity) within validated ranges\n• Need for complete traceability from raw material to finished product\n• Integration with existing laboratory information management system (LIMS)",
+                "solution": "Implemented Allen Bradley PLC controls with WinCC SCADA, barcode tracking, vision inspection systems, and electronic batch records management.\n\nThe solution was designed around validated automation architecture following GAMP 5 guidelines. Key components include: Allen Bradley CompactLogix PLCs controlling tablet compression, coating, and packaging equipment; WinCC SCADA providing 15 recipe-driven production screens with audit trail; Cognex machine vision cameras at three inspection points performing tablet defect detection, blister seal inspection, and carton verification; barcode scanners at every material transaction point ensuring complete traceability; a custom EBR system automatically aggregating production data, quality results, and equipment parameters into batch records; and environmental monitoring sensors feeding clean room conditions into the SCADA system with automatic alarm generation for out-of-spec conditions.",
                 "techs": ["Allen Bradley Studio 5000", "WinCC", "Python", "IIoT", "Machine Vision", "PLC"],
                 "deliverables": ["PLC Programming", "SCADA Dashboard", "Vision Inspection", "Batch Records", "Production Reports", "Documentation", "Training"],
             },
@@ -392,13 +392,13 @@ We specialize in upgrading legacy automation systems while ensuring seamless com
                 "industry": "Food Processing",
                 "status": "ongoing",
                 "location": "Coimbatore",
-                "project_value": 7.2,
+                "project_value": "7.2 Cr",
                 "duration": "10 Months",
                 "team_size": 14,
-                "is_featured": False,
-                "overview": "Automated mixing, packaging line, quality monitoring, and energy dashboard for a modern food processing facility.",
-                "challenges": "Manual mixing inconsistencies, packaging bottlenecks, energy waste, and quality control gaps.",
-                "solution": "Mitsubishi PLC controls, SCADA visualization, IoT sensors for quality monitoring, and cloud-based energy management dashboard.",
+                "is_featured": True,
+                "overview": "Automated mixing, packaging line, quality monitoring, and energy dashboard for a modern food processing facility.\n\nGreenFood Processing, a leading packaged foods manufacturer, needed to modernize their Coimbatore facility to meet growing demand while improving quality consistency and reducing energy costs. The existing manual and semi-automated processes were struggling with batch-to-batch variations in product quality, packaging inefficiencies, and rising electricity costs.\n\nThe automation scope included three main production areas: (1) Raw material handling and automated mixing — replacing manual weighing and mixing with PLC-controlled batching systems featuring load cells and flow meters; (2) Automated packaging line — integrating form-fill-seal machines, checkweighers, metal detectors, and case packers into a coordinated packaging system; (3) Quality monitoring and energy management — deploying IoT sensors throughout the facility for real-time monitoring of production parameters, equipment status, and energy consumption. All systems are monitored through a centralized SCADA platform with role-based dashboards for production, quality, and maintenance teams.",
+                "challenges": "• Batch-to-batch quality inconsistencies due to manual mixing operations\n• Packaging line bottlenecks causing throughput of only 40 packs per minute\n• Energy costs representing 22% of total operational expenditure\n• No quality monitoring system — defects detected only at final inspection\n• Limited production visibility for management decision-making\n• Frequent changeover delays between product variants\n• Manual data collection for production reporting consuming 3 hours per shift\n• Lack of traceability from raw material batch to finished product",
+                "solution": "Mitsubishi PLC controls, SCADA visualization, IoT sensors for quality monitoring, and cloud-based energy management dashboard.\n\nThe automation solution deployed Mitsubishi FX5U PLCs for machine-level control of mixing vessels, conveyors, and packaging equipment. A plant-wide SCADA system provides unified visualization with recipe management for 15 product variants, enabling automated changeover in under 10 minutes. IoT sensors monitor critical quality parameters including mixing temperature, viscosity, and moisture content in real time. The cloud-based energy management dashboard tracks power consumption by production area, identifies peak demand periods, and provides actionable recommendations for energy optimization. Production data is automatically captured for OEE calculation, quality trending, and compliance reporting.",
                 "techs": ["Mitsubishi GX Works", "SCADA", "IIoT", "Grafana", "InfluxDB", "MQTT"],
                 "deliverables": ["Automated Mixing", "Packaging Line", "Quality Monitoring", "Energy Dashboard", "Training", "Documentation"],
             },
@@ -409,13 +409,13 @@ We specialize in upgrading legacy automation systems while ensuring seamless com
                 "industry": "Cement",
                 "status": "completed",
                 "location": "Nalgonda",
-                "project_value": 13.4,
+                "project_value": "13.4 Cr",
                 "duration": "14 Months",
                 "team_size": 22,
                 "is_featured": True,
-                "overview": "Complete plant automation including SCADA monitoring, remote diagnostics, and centralized control for a cement manufacturing facility.",
-                "challenges": "Aging control systems, high energy consumption, frequent downtime, and lack of operational visibility.",
-                "solution": "Upgraded legacy PLC systems with modern Siemens controllers, deployed plant-wide SCADA, implemented remote diagnostics, and energy optimization.",
+                "overview": "Complete plant automation including SCADA monitoring, remote diagnostics, and centralized control for a cement manufacturing facility.\n\nUltra Cement's Nalgonda plant, with a production capacity of 3 million tons per year, was operating on legacy control systems that were over 15 years old. Frequent breakdowns, lack of spare parts availability, and inability to integrate with modern monitoring systems were severely impacting production. The plant was experiencing unplanned downtime of over 200 hours per year, directly affecting revenue and customer commitments.\n\nNexForge executed a complete control system migration program, replacing the obsolete PLCs and distributed control components with modern Siemens S7-1500 controllers while minimizing production disruption. The project was executed in phases over 14 months, with careful planning to ensure zero production loss during cutovers. A plant-wide SCADA system with over 12,000 tags was deployed, providing operators with comprehensive visibility into every stage of the cement manufacturing process — from raw material crushing and grinding to preheater tower, kiln, cooler, and finish grinding.\n\nThe solution also included remote diagnostics capabilities enabling NexForge's engineering team to provide proactive support, energy optimization algorithms that reduced power consumption by 12%, and integration with the plant's existing ERP system for automated production reporting.",
+                "challenges": "• Obsolete control systems with no manufacturer support or spare parts availability\n• Over 200 hours of unplanned downtime annually due to control system failures\n• Lack of real-time visibility into kiln and grinding operations\n• High energy consumption — the plant was 15% above industry benchmark\n• No remote monitoring capability requiring engineers to be on-site 24/7\n• Difficulty maintaining consistent product quality due to aging control loops\n• No historical data collection for process optimization or compliance reporting\n• Integration challenges with existing motor control centers and variable frequency drives",
+                "solution": "Upgraded legacy PLC systems with modern Siemens controllers, deployed plant-wide SCADA, implemented remote diagnostics, and energy optimization.\n\nThe migration strategy used a phased approach: Phase 1 — replacement of critical kiln and preheater controls during a scheduled plant shutdown; Phase 2 — upgrade of raw mill and cement mill control systems with parallel operation capability; Phase 3 — deployment of plant-wide SCADA with 12,000+ tags, remote diagnostics via secure VPN, and energy optimization system. The new Siemens S7-1500 controllers provided 10x performance improvement over the legacy systems, while the PROFINET network infrastructure replaced aging serial communication buses. A dedicated fiber optic backbone ensures reliable communication across the 50-acre plant site.",
                 "techs": ["Siemens TIA Portal", "SCADA", "WinCC", "IIoT", "Modbus TCP", "OPC UA"],
                 "deliverables": ["PLC Upgrade", "SCADA System", "Remote Diagnostics", "Energy Optimization", "Control Room Setup", "Training"],
             },
@@ -426,13 +426,13 @@ We specialize in upgrading legacy automation systems while ensuring seamless com
                 "industry": "Packaging",
                 "status": "completed",
                 "location": "Ahmedabad",
-                "project_value": 6.7,
+                "project_value": "6.7 Cr",
                 "duration": "8 Months",
                 "team_size": 12,
-                "is_featured": False,
-                "overview": "Automated conveyors, robotic packaging, barcode inspection, and warehouse integration for a large packaging facility.",
-                "challenges": "Manual packaging bottlenecks, high labor costs, damage during handling, and warehouse inefficiency.",
-                "solution": "Integrated robotic packaging cells, automated conveyor systems, barcode tracking, and WMS integration.",
+                "is_featured": True,
+                "overview": "Automated conveyors, robotic packaging, barcode inspection, and warehouse integration for a large packaging facility.\n\nMega Packaging Industries operates one of the largest flexible packaging facilities in western India, producing packaging materials for FMCG, food, and pharmaceutical clients. The facility had grown organically over two decades, resulting in a patchwork of manual processes and semi-automated equipment that could not keep pace with increasing order volumes and quality expectations.\n\nThe project focused on three critical areas: (1) Converting the manual packaging line into a fully automated system with robotic case packing and palletizing; (2) Implementing an automated conveyor system connecting production, inspection, and warehouse zones; (3) Deploying a barcode-based tracking system integrated with the client's warehouse management system (WMS) for real-time inventory visibility.\n\nThe automation solution reduced manual material handling by 80%, eliminated packaging bottlenecks, and provided end-to-end traceability from production to shipment. The client reported a 40% increase in throughput and significant reduction in product damage during handling.",
+                "challenges": "• Manual case packing limiting throughput to 20 cases per minute\n• High labor costs with 35 workers per shift dedicated to packaging operations\n• Product damage rates of 3.5% due to inconsistent manual handling\n• No real-time visibility into warehouse inventory levels\n• Frequent mis-shipments due to manual label verification\n• Lack of integration between production output and warehouse receiving\n• Space constraints limiting expansion of manual packaging area\n• Difficulty recruiting and retaining packaging line workers",
+                "solution": "Integrated robotic packaging cells, automated conveyor systems, barcode tracking, and WMS integration.\n\nThe solution deployed four FANUC M-20iA robotic case packing cells capable of handling 35 cases per minute with zero product damage. A 200-meter automated conveyor system with barcode scanners at every junction routes completed cases to the correct warehouse zone. Machine vision cameras verify labels and packaging quality before products enter the warehouse. The barcode tracking system provides real-time inventory visibility, reducing inventory discrepancies from 5% to under 0.5%. API integration with the existing WMS ensures automatic stock updates and enables wave picking for outbound orders.",
                 "techs": ["FANUC", "Machine Vision", "PLC", "IIoT", "Python"],
                 "deliverables": ["Robot Integration", "Conveyor System", "Barcode Tracking", "Warehouse Integration", "Documentation"],
             },
@@ -443,13 +443,13 @@ We specialize in upgrading legacy automation systems while ensuring seamless com
                 "industry": "Electronics",
                 "status": "completed",
                 "location": "Noida",
-                "project_value": 10.2,
+                "project_value": "10.2 Cr",
                 "duration": "11 Months",
                 "team_size": 18,
                 "is_featured": True,
-                "overview": "Machine vision-guided robotic assembly, automated testing, and quality inspection for precision electronics manufacturing.",
-                "challenges": "Microscopic component handling, tight tolerances, high defect rates, and slow manual assembly.",
-                "solution": "Vision-guided robots for precision assembly, AI-powered inspection systems, and automated testing stations.",
+                "overview": "Machine vision-guided robotic assembly, automated testing, and quality inspection for precision electronics manufacturing.\n\nElectronics Assembly Co. (EAC) manufactures precision electronic modules for automotive, medical device, and industrial automation applications. Their Noida facility required a major automation upgrade to handle increasing production volumes while maintaining the exacting quality standards demanded by their customers — defect rates had to be measured in parts per million.\n\nThe project involved automating five assembly lines for surface-mount technology (SMT) PCB assembly, through-hole component insertion, conformal coating, final assembly, and functional testing. The core challenge was handling microscopic components (down to 0201 package size — 0.6mm × 0.3mm) with high speed and precision beyond human capability.\n\nNexForge designed and deployed an integrated automation ecosystem featuring vision-guided robotic assembly cells, AI-powered inspection stations using deep learning for defect classification, automated optical inspection (AOI) systems, and a comprehensive manufacturing execution system (MES) for real-time production tracking and quality management.",
+                "challenges": "• Microscopic component handling requiring precision beyond human capability\n• Tight assembly tolerances of ±0.05mm for critical electronic components\n• Defect rates of 1,200 PPM (parts per million) exceeding customer requirements\n• Slow manual assembly speed limiting throughput to 150 units per hour\n• Inconsistent solder joint quality leading to field failures\n• No automated testing capability — functional testing performed manually\n• Lack of traceability for individual units through the production process\n• High operator training costs and turnover rates in skilled assembly roles",
+                "solution": "Vision-guided robots for precision assembly, AI-powered inspection systems, and automated testing stations.\n\nThe automation solution deployed 12 Epson SCARA robots with integrated vision guidance for precision component placement. Eight AI-powered inspection stations using YOLO-based deep learning models detect solder defects, component misalignment, and assembly errors at line speed. Automated optical inspection (AOI) systems verify every PCB after soldering with 99.8% defect detection accuracy. A custom MES tracks each unit through the production process using unique barcodes, capturing test results and quality data for complete traceability. Functional testing stations automatically validate each assembled module against specifications, with data logged to the MES for statistical process control.",
                 "techs": ["Machine Vision", "Robotics", "PLC", "IIoT", "OpenCV", "TensorFlow", "YOLO"],
                 "deliverables": ["Robot Programming", "Vision System", "Testing Station", "Quality Dashboard", "Documentation", "Training"],
             },
@@ -679,6 +679,172 @@ From articulated robots for welding and assembly to delta robots for high-speed 
                     "is_active": True,
                 },
             )
+
+        # --- Branch Offices --------------------------------------------------------
+        branch_data = [
+            ("Hyderabad (Headquarters)", "Plot 123, HITEC City", "Hyderabad", "Telangana", True, 17.4435, 78.3772),
+            ("Pune Office", "Phase 1, MIDC Bhosari", "Pune", "Maharashtra", False, 18.5631, 73.8294),
+            ("Bangalore Office", "Whitefield Main Road", "Bangalore", "Karnataka", False, 12.9698, 77.7500),
+            ("Chennai Office", "Guindy Industrial Estate", "Chennai", "Tamil Nadu", False, 13.0067, 80.2206),
+            ("Ahmedabad Office", "GIDC, Vatva", "Ahmedabad", "Gujarat", False, 22.9636, 72.6015),
+            ("Noida Office", "Sector 63", "Noida", "Uttar Pradesh", False, 28.5855, 77.3100),
+            ("Dubai Sales Office", "Sheikh Zayed Road", "Dubai", "Dubai", False, 25.2048, 55.2708),
+        ]
+        for i, (name, addr, city, state, is_hq, lat, lng) in enumerate(branch_data):
+            country = "UAE" if city == "Dubai" else "India"
+            BranchOffice.objects.get_or_create(
+                name=name,
+                defaults={
+                    "address": addr,
+                    "city": city,
+                    "state": state,
+                    "country": country,
+                    "is_headquarters": is_hq,
+                    "latitude": lat,
+                    "longitude": lng,
+                    "order": i,
+                },
+            )
+
+        # --- Project: Enhanced data ------------------------------------------------
+        from apps.projects.models import ProjectGallery as ProjectGalleryModel
+        for p in Project.objects.all():
+            if not p.gallery.exists():
+                for i in range(5):
+                    ProjectGalleryModel.objects.create(
+                        project=p,
+                        image="projects/gallery/placeholder.jpg",
+                        caption=f"{p.title} — Photo {i + 1}",
+                        order=i,
+                    )
+            if not p.videos.exists():
+                ProjectVideo.objects.create(
+                    project=p,
+                    video_url="https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    title=f"{p.title} — Project Walkthrough",
+                )
+
+        # --- Per-Project Downloads -------------------------------------------------
+        for p in Project.objects.filter(is_featured=True):
+            if not Download.objects.filter(project=p).exists():
+                Download.objects.get_or_create(
+                    title=f"{p.title} — Case Study",
+                    defaults={
+                        "type": Download.Type.CASE_STUDY,
+                        "file": "downloads/placeholder.pdf",
+                        "project": p,
+                    },
+                )
+                Download.objects.get_or_create(
+                    title=f"{p.title} — Technical Brochure",
+                    defaults={
+                        "type": Download.Type.BROCHURE,
+                        "file": "downloads/placeholder.pdf",
+                        "project": p,
+                    },
+                )
+
+        # --- Additional Blog Posts -------------------------------------------------
+        extra_posts = [
+            {
+                "title": "Smart Factory Implementation: A Step-by-Step Guide",
+                "slug": "smart-factory-implementation-guide",
+                "summary": "A comprehensive guide to planning and executing a smart factory transformation for manufacturing plants.",
+                "body": """Implementing a smart factory is a strategic journey that requires careful planning, the right technology partners, and a phased approach. This guide outlines the key steps to successful smart factory implementation.
+
+## Phase 1: Assessment & Strategy
+Begin with a comprehensive factory audit to understand current operations, identify bottlenecks, and define automation goals. Develop a clear Industry 4.0 roadmap with measurable KPIs.
+
+## Phase 2: Technology Selection
+Choose the right automation technologies based on your specific production needs. Consider factors like scalability, integration with existing systems, and ROI timeline.
+
+## Phase 3: Implementation
+Deploy automation systems in phases, starting with high-impact areas. Ensure proper integration between PLCs, SCADA, IIoT sensors, and enterprise systems.
+
+## Phase 4: Optimization
+Continuously monitor and optimize performance using data analytics and machine learning. Train operators and maintenance teams for long-term success.""",
+                "category": "Smart Manufacturing",
+                "author_name": "Arjun Reddy",
+                "is_featured": False,
+            },
+            {
+                "title": "PLC vs DCS: Choosing the Right Control System",
+                "slug": "plc-vs-dcs-control-systems",
+                "summary": "Understand the key differences between PLC and DCS architectures and how to choose the right one for your application.",
+                "body": """Programmable Logic Controllers (PLCs) and Distributed Control Systems (DCS) are both essential tools in industrial automation, but they serve different purposes and excel in different applications.
+
+## When to Choose PLC
+PLCs are ideal for discrete manufacturing, machine control, and applications requiring high-speed logic processing. They offer flexibility, cost-effectiveness for small to medium systems, and are widely used in automotive, packaging, and electronics manufacturing.
+
+## When to Choose DCS
+DCS is better suited for continuous process industries like oil and gas, chemical processing, and power generation. DCS provides superior process control, redundancy, and scalability for large, complex systems.
+
+## Hybrid Approaches
+Modern automation often combines both technologies, using PLCs for machine-level control and DCS for plant-wide process management. NexForze specializes in designing hybrid architectures that leverage the best of both worlds.""",
+                "category": "Industry 4.0",
+                "author_name": "Vikram Patel",
+                "is_featured": False,
+            },
+        ]
+        for bp in extra_posts:
+            cat = cat_objs.get(bp["category"])
+            author = author_users.get(bp["author_name"], admin_user)
+            BlogPost.objects.get_or_create(
+                slug=bp["slug"],
+                defaults={
+                    "title": bp["title"],
+                    "summary": bp["summary"],
+                    "body": bp["body"],
+                    "category": cat,
+                    "author": author,
+                    "is_featured": bp.get("is_featured", False),
+                    "published_at": timezone.now(),
+                },
+            )
+
+        # --- Additional FAQ entries ------------------------------------------------
+        extra_faqs = [
+            ("What is the cost of implementing industrial automation?", "The cost varies based on project scope, complexity, and technologies involved. We provide detailed ROI analysis and free consultation to help you make informed decisions.", FAQ.Category.GENERAL),
+            ("How long does a typical SCADA implementation take?", "SCADA implementation timelines range from 4 to 12 weeks depending on the number of data points, integration requirements, and dashboard complexity.", FAQ.Category.SERVICE),
+            ("Can NexForge help with legacy system upgrades?", "Yes, we specialize in upgrading legacy automation systems with minimal production downtime. Our engineers assess your existing infrastructure and design migration strategies that ensure business continuity.", FAQ.Category.SERVICE),
+            ("What safety standards do you follow?", "All our projects comply with international safety standards including ISO 13849, IEC 62061, and local regulatory requirements. Safety is built into every phase of our engineering process.", FAQ.Category.GENERAL),
+        ]
+        for q, a, cat in extra_faqs:
+            FAQ.objects.get_or_create(question=q, defaults={"answer": a, "category": cat, "order": FAQ.objects.count(), "is_active": True})
+
+        # --- Additional Awards ------------------------------------------------------
+        extra_awards = [
+            ("Top Industrial IoT Solution Provider 2024", 2024, "Recognized for innovative IoT solutions in manufacturing."),
+            ("Best Employer in Industrial Automation 2023", 2023, "Awarded for exceptional workplace culture and employee development."),
+            ("Innovation in Smart Manufacturing 2022", 2022, "For pioneering AI-driven quality inspection systems."),
+        ]
+        for title, year, desc in extra_awards:
+            Award.objects.get_or_create(title=title, defaults={"year": year, "description": desc})
+
+        # --- Additional Gallery Items ----------------------------------------------
+        extra_gallery = [
+            ("Industrial Automation", "Complete production line automation system installation"),
+            ("Robotics", "Six-axis robotic arm performing precision welding"),
+            ("IoT Solutions", "Real-time production analytics dashboard"),
+            ("Smart Factories", "Digital twin visualization of factory floor"),
+            ("Industrial Automation", "Electrical panel wiring and assembly"),
+            ("Robotics", "Collaborative robot in food packaging application"),
+            ("IoT Solutions", "Wireless sensor network installation"),
+            ("Smart Factories", "Engineer monitoring SCADA system in control room"),
+            ("Industrial Automation", "Automated material handling system"),
+            ("Robotics", "Robotic vision inspection station"),
+            ("IoT Solutions", "Cloud-connected factory monitoring platform"),
+            ("Smart Factories", "Automated guided vehicle (AGV) in warehouse"),
+        ]
+        seen_gallery = set(GalleryItem.objects.values_list("title", flat=True))
+        for cat, title in extra_gallery:
+            if title not in seen_gallery:
+                GalleryItem.objects.create(
+                    title=title,
+                    category=cat,
+                    image="gallery/placeholder.jpg",
+                    order=GalleryItem.objects.count() + 1,
+                )
 
         # --- Gallery Items --------------------------------------------------------
         gallery_categories = [

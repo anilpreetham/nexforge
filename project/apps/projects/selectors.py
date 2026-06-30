@@ -34,11 +34,6 @@ def get_filtered_projects(filters=None):
     return qs.order_by("order", "-created_at")
 
 
-def get_featured_projects(limit=3):
-    """Get featured projects for homepage."""
-    return Project.objects.filter(is_featured=True).select_related("industry")[:limit]
-
-
 def get_related_projects(project, limit=3):
     """Get related projects from same industry."""
     return Project.objects.filter(

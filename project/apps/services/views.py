@@ -12,10 +12,13 @@ class ServiceViewSet(ReadOnlyModelViewSet):
 
     lookup_field = "slug"
     permission_classes = [AllowAny]
-    queryset = Service.objects.filter(is_active=True).prefetch_related(
-        "technologies", "industries", "benefits", "deliverables"
-    )
     search_fields = ["title", "short_description"]
+
+    def get_queryset(self):
+        qs = Service.objects.filter(is_active=True)
+        if self.action == "retrieve":
+            qs = qs.prefetch_related("technologies", "industries", "benefits", "deliverables")
+        return qs
 
     def get_serializer_class(self):
         if self.action == "retrieve":

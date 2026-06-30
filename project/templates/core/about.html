@@ -151,6 +151,39 @@
   </div>
 </section>
 
+<!-- Branch Offices -->
+{% if branches %}
+<section class="container py-5">
+  <h2 class="fw-bold text-center mb-5">Our Offices</h2>
+  <div class="row g-3">
+    {% for b in branches %}
+    <div class="col-md-4 col-lg-3">
+      <div class="card border-0 bg-gray h-100 p-3">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          {% if b.is_headquarters %}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          {% else %}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          {% endif %}
+          <h3 class="h6 fw-bold mb-0">{{ b.name }}</h3>
+        </div>
+        <p class="small text-muted mb-1">{{ b.address }}, {{ b.city }}</p>
+        <p class="small text-muted mb-0">{{ b.state }}, {{ b.country }}</p>
+        {% if b.phone %}<p class="small text-muted mb-0 mt-1">{{ b.phone }}</p>{% endif %}
+        {% if b.is_headquarters %}<span class="badge bg-orange mt-2" style="font-size:10px">HEADQUARTERS</span>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
 {% if awards %}
 <!-- Awards -->
 <section class="bg-gray py-5">
