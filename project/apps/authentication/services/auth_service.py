@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from apps.authentication.models import (
@@ -6,6 +7,7 @@ from apps.authentication.models import (
     Role,
     UserRole,
 )
+
 
 from apps.authentication.services.jwt_service import JWTService
 from apps.authentication.services.role_service import RoleService
