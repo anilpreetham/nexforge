@@ -5,6 +5,7 @@
 {% block content %}
 <section class="container py-5" style="max-width:820px">
   <a href="{% url 'blog-list' %}" class="text-decoration-none">&larr; Back to blog</a>
+  
 
   {% if post.category %}<span class="badge bg-blue mt-3 d-inline-block">{{ post.category.name }}</span>{% endif %}
   <h1 class="fw-bold mt-2">{{ post.title }}</h1>
@@ -17,10 +18,12 @@
   <img src="{{ post.featured_image.url }}" class="img-fluid rounded mb-4" alt="{{ post.title }}" loading="lazy">
   {% endif %}
 
+  
   <div class="blog-content">
     {{ post.body|linebreaks }}
   </div>
 
+  
   <!-- Share Buttons -->
   <div class="d-flex align-items-center gap-2 mt-5 pt-3 border-top">
     <span class="small fw-semibold text-muted">Share:</span>
@@ -34,6 +37,7 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
     </a>
   </div>
+
 
   <!-- Author Bio -->
   {% if post.author and post.author.get_full_name %}
