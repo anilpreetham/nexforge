@@ -9,6 +9,8 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 from apps.blog.models import BlogCategory, BlogPost
+from apps.careers.models import JobApplication, JobOpening
+from apps.contact.models import Enquiry
 from apps.content.models import FAQ, Award, Download, Testimonial, GalleryItem
 from apps.core.models import BranchOffice, Client, Industry, Technology
 from apps.projects.models import Project, ProjectDeliverable, ProjectMilestone, ProjectVideo, ProjectGallery
@@ -33,28 +35,54 @@ class Command(BaseCommand):
             admin_user.save()
 
         # --- User Roles (Groups) -------------------------------------------------
-        role_data = {
-            "Admin": ["add", "change", "delete", "view"],
-            "Editor": ["add", "change", "view"],
-            "Viewer": ["view"],
+        # Named roles from the content pack, each scoped to the models it owns.
+        # Permissions are re-synced on every run so role definitions can evolve.
+        crud = ["add", "change", "delete", "view"]
+        content_models = (BlogPost, BlogCategory, FAQ, Award, Download,
+                          Testimonial, GalleryItem, Industry, Technology)
+        role_matrix = {
+            # Administrator: full control of every content-pack model.
+            "Administrator": {
+                m: crud for m in (
+                    Project, ProjectDeliverable, ProjectMilestone, ProjectVideo,
+                    ProjectGallery, Industry, Technology, Client, Service,
+                    ServiceBenefit, ServiceDeliverable, BlogPost, BlogCategory,
+                    FAQ, Award, Download, Testimonial, GalleryItem,
+                    Enquiry, JobOpening, JobApplication,
+                )
+            },
+            # Content Manager: blogs, news, and static site content.
+            "Content Manager": {m: crud for m in content_models},
+            # Sales Manager: client inquiries and CRM.
+            "Sales Manager": {
+                Enquiry: crud,
+                Client: crud,
+                Project: ["view"],
+            },
+            # Technical Support: support tickets and FAQs.
+            "Technical Support": {
+                Enquiry: ["change", "view"],
+                FAQ: crud,
+            },
+            # HR Manager: job openings and applications (careers section).
+            "HR Manager": {
+                JobOpening: crud,
+                JobApplication: ["change", "view"],
+            },
         }
-        for role_name, perms in role_data.items():
-            group, created = Group.objects.get_or_create(name=role_name)
-            if created:
-                for model in (Project, ProjectDeliverable, Industry, Technology, Client,
-                              Service, ServiceBenefit, ServiceDeliverable,
-                              BlogPost, BlogCategory, FAQ, Award, Download,
-                              Testimonial, GalleryItem):
-                    ct = ContentType.objects.get_for_model(model)
-                    for action in perms:
-                        try:
-                            permission = Permission.objects.get(
-                                content_type=ct,
-                                codename=f"{action}_{model._meta.model_name}",
-                            )
-                            group.permissions.add(permission)
-                        except Permission.DoesNotExist:
-                            pass
+        for role_name, model_perms in role_matrix.items():
+            group, _ = Group.objects.get_or_create(name=role_name)
+            perms = []
+            for model, actions in model_perms.items():
+                ct = ContentType.objects.get_for_model(model)
+                for action in actions:
+                    perm = Permission.objects.filter(
+                        content_type=ct,
+                        codename=f"{action}_{model._meta.model_name}",
+                    ).first()
+                    if perm:
+                        perms.append(perm)
+            group.permissions.set(perms)
 
         # --- Industries ----------------------------------------------------------
         industry_names = [

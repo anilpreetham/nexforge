@@ -10,6 +10,49 @@
   </div>
 </section>
 
+<!-- Animated Statistics -->
+<section class="bg-blue-dark text-white py-4">
+  <div class="container">
+    <div class="row text-center g-3">
+      <div class="col-6 col-md-3">
+        <div class="stat-counter count-up" data-target="{{ stat_total }}">0</div>
+        <div class="stat-label">Total Projects</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-counter count-up" data-target="{{ stat_completed }}">0</div>
+        <div class="stat-label">Completed</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-counter count-up" data-target="{{ stat_ongoing }}">0</div>
+        <div class="stat-label">Ongoing</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-counter count-up" data-target="{{ stat_clients }}">0</div>
+        <div class="stat-label">Clients Served</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if clients_with_logos %}
+<!-- Client Logo Slider -->
+<section class="bg-gray py-4">
+  <div class="container">
+    <p class="text-center text-muted small text-uppercase mb-3">Trusted by leading manufacturers</p>
+    <div class="marquee" aria-label="Client logos">
+      <div class="marquee__track">
+        {% for c in clients_with_logos %}
+        <img src="{{ c.logo.url }}" alt="{{ c.name }}" class="marquee__logo" loading="lazy">
+        {% endfor %}
+        {% for c in clients_with_logos %}
+        <img src="{{ c.logo.url }}" alt="{{ c.name }}" class="marquee__logo" loading="lazy" aria-hidden="true">
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <section class="container py-5">
   <div class="row">
     <!-- Filter Sidebar -->

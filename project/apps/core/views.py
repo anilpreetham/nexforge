@@ -105,6 +105,11 @@ def projects_portfolio(request):
         {
             "industries": get_all_industries(),
             "technologies": Technology.objects.all().order_by("name"),
+            "clients_with_logos": Client.objects.exclude(logo="").order_by("name"),
+            "stat_total": Project.objects.count(),
+            "stat_completed": Project.objects.filter(status=Project.Status.COMPLETED).count(),
+            "stat_ongoing": Project.objects.filter(status=Project.Status.ONGOING).count(),
+            "stat_clients": Client.objects.count(),
         },
     )
 

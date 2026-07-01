@@ -78,7 +78,7 @@
     <p class="lead text-white-50 mb-4">Contact our engineering team for a detailed consultation.</p>
     <div class="d-flex flex-wrap justify-content-center gap-2">
       {% for cta_text, cta_url_name, cta_class in service_ctas %}
-      <a href="{% url cta_url_name %}{% if cta_url_name == 'contact' %}?source=service-{{ service.slug }}{% endif %}" class="btn {{ cta_class }}">{{ cta_text }}</a>
+      <a href="{% url cta_url_name %}{% if cta_url_name == 'contact' %}?type=sales&amp;source=service-{{ service.slug }}{% endif %}" class="btn {{ cta_class }}">{{ cta_text }}</a>
       {% endfor %}
     </div>
   </div>

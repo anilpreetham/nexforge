@@ -48,6 +48,15 @@
           <form id="contact-form" novalidate>
             <input type="hidden" id="source" value="{{ request.GET.source }}">
             <div class="mb-3">
+              <label for="enquiry_type" class="form-label small fw-semibold">I'm enquiring about</label>
+              <select id="enquiry_type" class="form-select">
+                <option value="general"{% if request.GET.type == 'general' or not request.GET.type %} selected{% endif %}>General enquiry</option>
+                <option value="sales"{% if request.GET.type == 'sales' %} selected{% endif %}>Sales / Consultation</option>
+                <option value="support"{% if request.GET.type == 'support' %} selected{% endif %}>Technical Support</option>
+                <option value="factory_visit"{% if request.GET.type == 'factory_visit' %} selected{% endif %}>Book a Factory Visit</option>
+              </select>
+            </div>
+            <div class="mb-3">
               <label for="name" class="form-label small fw-semibold">Name *</label>
               <input type="text" id="name" class="form-control" required minlength="2">
               <div class="invalid-feedback">Please enter your name.</div>

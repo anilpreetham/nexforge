@@ -13,6 +13,7 @@
         <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'gallery' %} active" aria-current="page{% endif %}" href="{% url 'gallery' %}">Gallery</a></li>
         <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'faq' %} active" aria-current="page{% endif %}" href="{% url 'faq' %}">FAQ</a></li>
         <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'blog-list' or request.resolver_match.url_name == 'blog-detail' %} active" aria-current="page{% endif %}" href="{% url 'blog-list' %}">Blog</a></li>
+        <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'careers-list' or request.resolver_match.url_name == 'career-detail' %} active" aria-current="page{% endif %}" href="{% url 'careers-list' %}">Careers</a></li>
         <li class="nav-item"><a class="nav-link{% if request.resolver_match.url_name == 'downloads' %} active" aria-current="page{% endif %}" href="{% url 'downloads' %}">Downloads</a></li>
         <li class="nav-item ms-lg-2">
           <a href="{% url 'contact' %}" class="btn btn-brand btn-sm">Get a Quote</a>

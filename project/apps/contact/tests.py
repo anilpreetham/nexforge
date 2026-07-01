@@ -18,6 +18,24 @@ class EnquiryAPITests(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Enquiry.objects.count(), 1)
         self.assertEqual(Enquiry.objects.first().status, Enquiry.Status.NEW)
+        # No type supplied -> defaults to GENERAL.
+        self.assertEqual(Enquiry.objects.first().enquiry_type, Enquiry.Type.GENERAL)
+
+    def test_enquiry_type_captured_and_validated(self):
+        res = self.client.post(
+            "/api/v1/enquiries/",
+            {"name": "A", "email": "a@b.com", "message": "Book a slot",
+             "enquiry_type": "factory_visit"},
+        )
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Enquiry.objects.first().enquiry_type, Enquiry.Type.FACTORY_VISIT)
+        # Invalid choice rejected server-side.
+        bad = self.client.post(
+            "/api/v1/enquiries/",
+            {"name": "A", "email": "a@b.com", "message": "Hello there",
+             "enquiry_type": "hacker"},
+        )
+        self.assertEqual(bad.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_short_message_rejected(self):
         res = self.client.post(

@@ -107,18 +107,20 @@ class ProjectAPITests(APITestCase):
         )
 
     def test_list_returns_all(self):
+        # ProjectViewSet disables pagination so the portfolio grid gets the
+        # full list; the response is a plain list, not a paginated envelope.
         res = self.client.get("/api/v1/projects/")
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data["count"], 2)
+        self.assertEqual(len(res.data), 2)
 
     def test_filter_by_industry_slug(self):
         res = self.client.get("/api/v1/projects/?industry__slug=pharma")
-        self.assertEqual(res.data["count"], 1)
-        self.assertEqual(res.data["results"][0]["title"], "Medixa Pharma")
+        self.assertEqual(len(res.data), 1)
+        self.assertEqual(res.data[0]["title"], "Medixa Pharma")
 
     def test_search_matches_overview(self):
         res = self.client.get("/api/v1/projects/?search=EV")
-        self.assertEqual(res.data["count"], 1)
+        self.assertEqual(len(res.data), 1)
 
     def test_detail_by_slug(self):
         res = self.client.get("/api/v1/projects/voltedge-ev/")
