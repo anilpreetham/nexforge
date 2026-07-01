@@ -3,6 +3,7 @@
 import string
 
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -10,6 +11,11 @@ from .models import Enquiry
 
 
 class EnquiryAPITests(APITestCase):
+    def setUp(self):
+        # Enquiry endpoint is scope-throttled (5/min); the counter lives in the
+        # cache and would otherwise bleed across test methods and 429.
+        cache.clear()
+
     def test_public_can_create_enquiry(self):
         res = self.client.post(
             "/api/v1/enquiries/",

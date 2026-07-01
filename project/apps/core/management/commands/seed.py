@@ -3,7 +3,8 @@
 Idempotent: uses ``get_or_create`` so re-running won't duplicate rows.
 """
 
-from django.contrib.auth.models import Group, Permission, User
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.utils import timezone
@@ -21,6 +22,8 @@ class Command(BaseCommand):
     help = "Load production-grade demo data matching the NexForge content pack."
 
     def handle(self, *args, **options):
+        # Resolve the active user model (project swaps in authentication.CustomUser).
+        User = get_user_model()
         # --- Default Admin User --------------------------------------------------
         admin_user, created = User.objects.get_or_create(
             username="admin",

@@ -4,6 +4,7 @@ Environment-specific overrides live in ``dev.py`` and ``prod.py``. Secrets and
 deployment-varying values are read from the environment via ``django-environ``.
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 import dj_database_url
@@ -41,12 +42,15 @@ INSTALLED_APPS = [
     # Third party
     "rest_framework",
     "rest_framework.authtoken",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "django_filters",
     "corsheaders",
     "drf_spectacular",
     "csp",
     "mailer",
     # Local apps
+    "apps.authentication.apps.AuthenticationConfig",
     "apps.core",
     "apps.projects",
     "apps.services",
@@ -123,7 +127,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
@@ -145,6 +149,18 @@ REST_FRAMEWORK = {
         "auth": "10/min",
     },
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# Custom user model (JWT auth app)
+AUTH_USER_MODEL = "authentication.CustomUser"
+
+# Simple JWT — lifetimes come from env so ops can tune without a code change.
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=env.int("ACCESS_TOKEN_LIFETIME", default=15)),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=env.int("REFRESH_TOKEN_LIFETIME", default=7)),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": True,
 }
 
 # Email

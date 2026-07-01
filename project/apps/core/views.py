@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from apps.blog.models import BlogPost
 from apps.content.models import Award, Download, FAQ, GalleryItem, Testimonial
@@ -257,6 +258,7 @@ def downloads(request):
     return render(request, "content/downloads.html", {"downloads_by_type": dict(downloads_by_type)})
 
 
+@ensure_csrf_cookie
 def contact(request):
     from apps.core.models import BranchOffice
     import json
