@@ -5,7 +5,7 @@ from django.db import models
 
 
 class Enquiry(models.Model):
-    """A lead captured from the public contact form."""
+    """A lead captured from the public contact form."""   
 
     class Status(models.TextChoices):
         NEW = "new", "New"
