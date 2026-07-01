@@ -13,10 +13,19 @@ class Enquiry(models.Model):
         CONVERTED = "converted", "Converted"
         CLOSED = "closed", "Closed"
 
+    class Type(models.TextChoices):
+        GENERAL = "general", "General"
+        SALES = "sales", "Sales / Consultation"
+        SUPPORT = "support", "Technical Support"
+        FACTORY_VISIT = "factory_visit", "Book Factory Visit"
+
     name = models.CharField(max_length=150)
     email = models.EmailField()
     phone = models.CharField(max_length=20, blank=True)
     message = models.TextField()
+    enquiry_type = models.CharField(
+        max_length=20, choices=Type.choices, default=Type.GENERAL, db_index=True
+    )
     status = models.CharField(
         max_length=20, choices=Status.choices, default=Status.NEW
     )

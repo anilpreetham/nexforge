@@ -27,10 +27,10 @@
           AI Analytics, and Smart Factory Solutions designed for Industry 4.0.
         </p>
         <div class="d-flex flex-wrap gap-2">
-          <a href="{% url 'contact' %}" class="btn btn-brand btn-lg">Request Consultation</a>
+          <a href="{% url 'contact' %}?type=sales" class="btn btn-brand btn-lg">Request Consultation</a>
           <a href="{% url 'services-list' %}" class="btn btn-outline-light btn-lg">Explore Services</a>
           <a href="{% url 'downloads' %}" class="btn btn-cyan btn-lg">Download Company Profile</a>
-          <a href="{% url 'contact' %}" class="btn btn-outline-cyan btn-lg">Book Factory Visit</a>
+          <a href="{% url 'contact' %}?type=factory_visit" class="btn btn-outline-cyan btn-lg">Book Factory Visit</a>
         </div>
       </div>
       <div class="col-lg-5 d-none d-lg-flex justify-content-center">
@@ -406,10 +406,10 @@
     <h2 class="fw-bold mb-3">Ready to Transform Your Manufacturing Plant?</h2>
     <p class="lead text-white-50 mb-4">Partner with NexForge to modernize your factory with intelligent automation, IIoT, robotics, AI analytics, and Industry 4.0 technologies.</p>
     <div class="d-flex flex-wrap justify-content-center gap-2">
-      <a href="{% url 'contact' %}" class="btn btn-brand btn-lg">Request Proposal</a>
-      <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg">Book Site Visit</a>
+      <a href="{% url 'contact' %}?type=sales" class="btn btn-brand btn-lg">Request Proposal</a>
+      <a href="{% url 'contact' %}?type=factory_visit" class="btn btn-outline-light btn-lg">Book Site Visit</a>
       <a href="{% url 'downloads' %}" class="btn btn-cyan btn-lg">Download Company Profile</a>
-      <a href="{% url 'contact' %}" class="btn btn-outline-cyan btn-lg">Talk to Automation Expert</a>
+      <a href="{% url 'contact' %}?type=sales" class="btn btn-outline-cyan btn-lg">Talk to Automation Expert</a>
     </div>
   </div>
 </section>

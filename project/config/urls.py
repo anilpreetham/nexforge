@@ -9,7 +9,6 @@ from django.views.defaults import page_not_found, server_error
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.routers import DefaultRouter
 
-from apps.accounts.views import obtain_auth_token
 from apps.blog.views import BlogViewSet
 from apps.careers.views import JobApplicationViewSet, JobOpeningViewSet
 from apps.contact.views import EnquiryViewSet
@@ -47,7 +46,7 @@ router.register("applications", JobApplicationViewSet, basename="application")
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/", include(router.urls)),
-    path("api/v1/auth/login/", obtain_auth_token, name="api-login"),
+    path("api/v1/auth/", include("apps.authentication.urls")),
     # drf-spectacular API docs
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),

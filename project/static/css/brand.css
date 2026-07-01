@@ -415,6 +415,13 @@ section { position: relative; }
   box-shadow: var(--shadow-sm);
 }
 .marquee__item:hover { color: var(--orange); border-color: var(--orange); transform: translateY(-3px); }
+.marquee__logo { height: 46px; width: auto; object-fit: contain; filter: grayscale(1); opacity: .7; transition: all .25s var(--ease); }
+.marquee__logo:hover { filter: none; opacity: 1; }
+/* ---------- Related-projects carousel ---------- */
+.related-carousel { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .75rem; -webkit-overflow-scrolling: touch; }
+.related-slide { flex: 0 0 300px; max-width: 300px; scroll-snap-align: start; }
+.related-carousel::-webkit-scrollbar { height: 6px; }
+.related-carousel::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 50px; }
 
 /* ---------- A few more enterprise micro-interactions ---------- */
 /* Section CTA gradient panels get a slow living gradient */

@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from apps.blog.models import BlogPost
 from apps.content.models import Award, Download, FAQ, GalleryItem, Testimonial
@@ -105,6 +106,11 @@ def projects_portfolio(request):
         {
             "industries": get_all_industries(),
             "technologies": Technology.objects.all().order_by("name"),
+            "clients_with_logos": Client.objects.exclude(logo="").order_by("name"),
+            "stat_total": Project.objects.count(),
+            "stat_completed": Project.objects.filter(status=Project.Status.COMPLETED).count(),
+            "stat_ongoing": Project.objects.filter(status=Project.Status.ONGOING).count(),
+            "stat_clients": Client.objects.count(),
         },
     )
 
@@ -252,6 +258,7 @@ def downloads(request):
     return render(request, "content/downloads.html", {"downloads_by_type": dict(downloads_by_type)})
 
 
+@ensure_csrf_cookie
 def contact(request):
     from apps.core.models import BranchOffice
     import json

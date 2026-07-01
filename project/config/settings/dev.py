@@ -1,8 +1,19 @@
 """Development settings."""
 
+import dj_database_url
+
 from .base import *  # noqa: F401,F403
 
 DEBUG = True
+
+# Dev never touches the shared Supabase. Local Postgres via DEV_DATABASE_URL;
+# default matches the docker one-liner in the README.
+DATABASES = {
+    "default": dj_database_url.parse(
+        env("DEV_DATABASE_URL", default="postgres://nexforge:nexforge@localhost:5432/nexforge"),  # noqa: F405
+        conn_max_age=600,
+    )
+}
 
 # Use simple static file serving in dev (no manifest needed)
 STORAGES = {

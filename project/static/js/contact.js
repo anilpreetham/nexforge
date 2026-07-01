@@ -51,6 +51,10 @@
     if (sourceEl && sourceEl.value) {
       payload.message = '[Source: ' + sourceEl.value + ']\n' + payload.message;
     }
+    var typeEl = document.getElementById('enquiry_type');
+    if (typeEl && typeEl.value) {
+      payload.enquiry_type = typeEl.value;
+    }
 
     try {
       const res = await fetch('/api/v1/enquiries/', {

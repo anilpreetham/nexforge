@@ -24,10 +24,11 @@ def create_enquiry(name, email, phone, message):
 
 def send_enquiry_email(enquiry):
     """Send HTML email notification for new enquiry."""
-    subject = f"New Enquiry: {enquiry.name}"
+    subject = f"[{enquiry.get_enquiry_type_display()}] New Enquiry: {enquiry.name}"
     html_body = render_to_string("emails/enquiry_notification.html", {"enquiry": enquiry})
     text_body = (
-        f"New enquiry received:\n\nName: {enquiry.name}\n"
+        f"New enquiry received:\n\nType: {enquiry.get_enquiry_type_display()}\n"
+        f"Name: {enquiry.name}\n"
         f"Email: {enquiry.email}\nPhone: {enquiry.phone}\n"
         f"Message:\n{enquiry.message}"
     )

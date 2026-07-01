@@ -17,6 +17,7 @@ class EnquirySerializer(serializers.ModelSerializer):
             "email",
             "phone",
             "message",
+            "enquiry_type",
             "status",
             "assigned_to",
             "created_at",
